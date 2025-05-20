@@ -1,19 +1,7 @@
-# RepositorioTemplate
-Esse repositório é para ser utilizado pelos grupos como um template inicial, da home page do Projeto.
-As seções do Template NÃO DEVEM SER OMITIDAS, sendo TODAS RELEVANTES.
-
-**!! *Atenção: Renomeie o seu repositório para (Ano.Semestre)_(Grupo)_SMA_(NomeDaFrenteDePesquisa)*. !!** 
-
-**!! *Não coloque os nomes dos alunos no título do repositório*. !!**
-
-**!! *Exemplo de título correto: 2025.1_G1_SMA_ProjetoComportamentoEmergente*. !!**
- 
- (Apague esses comentários)
-
-# NomeDoProjeto
+# Monitoramento de Redes e mitigação de ataques DOS
 
 **Disciplina**: FGA0053 - Sistemas Multiagentes <br>
-**Nro do Grupo (de acordo com a Planilha de Divisão dos Grupos)**: XX<br>
+**Nro do Grupo (de acordo com a Planilha de Divisão dos Grupos)**: 01<br>
 **Frente de Pesquisa**: XXXXXXXXXX<br>
 
 ## Alunos
@@ -22,10 +10,48 @@ As seções do Template NÃO DEVEM SER OMITIDAS, sendo TODAS RELEVANTES.
 | xx/xxxxxx  |  xxxx xxxx xxxxx |
 | xx/xxxxxx  |  xxxx xxxx xxxxx |
 
-## Sobre 
+## Sobre ###ALTERAR!!!!!!
+
+Este projeto simula uma infraestrutura de rede utilizando uma árvore binária. Em cada nó, temos dois agentes:
+
+- 🛡️ `AgenteMonitor`: monitora requisições e detecta possíveis ataques
+- 🔒 `AgenteMitigador`: bloqueia IPs maliciosos
+
+Além disso, temos agentes externos que simulam:
+
+- 🧨 Atacantes (múltiplas requisições por segundo)
+- 👤 Usuários legítimos (requisições moderadas)
+
+## 📁 Estrutura
+src/agentes/
+
+ AgenteMonitor.java
+ AgenteMitigador.java
+ AgenteUsuarioTemplate.java
+ AgenteAtaque.java
+ AgenteAcesso.java
+ InfraArvore.java
+
+bash
+Copiar
+Editar
+
+## 🛠️ Pré-requisitos
+
+- Java 8+
+- JADE (adicione `jade.jar` em `/libs`)
+- Terminal ou IDE (como IntelliJ, Eclipse)
+
+## 🔧 Compilação
+
+```bash
+# Compilar todos os arquivos
+javac -d out -cp libs/jade.jar src/agentes/*.java
+```
+<b>
 Descreva o seu projeto em linhas gerais. 
 Use referências, links, que permitam conhecer um pouco mais sobre o projeto.
-Capriche nessa seção, pois ela é a primeira a ser lida pelos interessados no projeto.
+Capriche nessa seção, pois ela é a primeira a ser lida pelos interessados no projeto.</b>
 
 ## Screenshots
 Adicione 2 ou mais screenshots do projeto em termos de interface e/ou funcionamento.
