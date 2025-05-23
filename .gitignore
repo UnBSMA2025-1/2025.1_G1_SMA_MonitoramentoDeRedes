@@ -19,6 +19,7 @@
 *.war
 
 # Mas NÃO ignora os jars dentro de libs/
+!/libs/
 !/libs/*.jar
 
 # -----------------------------------
