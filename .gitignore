@@ -1,77 +1,49 @@
 # -----------------------------------
 # 1) IntelliJ IDEA
 # -----------------------------------
-# Ignora toda a pasta de projeto do IDEA
-/.idea/
-/*.iml
-
-# Mas mantém só as configurações de Run/Debug compartilháveis
-!.idea/runConfigurations/
-!.idea/runConfigurations/*.xml
+/.idea/                      # ignora tudo da IDE
+/*.iml                       # ignora modules (TrabalhoTep.iml, *.iml)
+/! .idea/runConfigurations/  # exceto Run/Debug Configs, se houver
+/! .idea/runConfigurations/*.xml
 
 # -----------------------------------
-# 2) Diretórios de build / artefatos
+# 2) Build outputs / artefatos
 # -----------------------------------
-# Saídas da compilação Java
-/out/
+/out/                        # classes compiladas e JARs de build
 /build/
 /target/
 /bin/
 
-# Classes compiladas e pacotes gerados
 *.class
 *.jar
 *.war
 
-# Se tiver libs internas (ex.: jade.jar), ignore a pasta inteira
-/libs/
+# -----------------------------------
+# 3) Dependências externas
+# -----------------------------------
+/libs/                       # JARs “colados” (ex.: jade.jar)
 
-# Logs e arquivos temporários
+# -----------------------------------
+# 4) Logs e temporários
+# -----------------------------------
 *.log
 *.tmp
 
 # -----------------------------------
-# 3) Ferramentas de build (Maven / Gradle)
+# 5) Outras IDEs / editores
 # -----------------------------------
-# Maven
-/.mvn/
-/pom.xml.tag
-/pom.xml.releaseBackup/
-/pom.xml.versionsBackup/
-/pom.xml.next
-/release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/wrapper/maven-wrapper.jar
-
-# Gradle
-/.gradle/
-/build/
-/!gradle/wrapper/gradle-wrapper.jar
-/gradle-wrapper.properties
-
-# -----------------------------------
-# 4) Outras IDEs e editores
-# -----------------------------------
-# Eclipse
-.classpath
+.vscode/
+.Factorypath
 .project
 .settings/
-.apt_generated
-.factorypath
-
-# NetBeans
-/nbproject/private/
-/nbbuild/
+/nbproject/
 /dist/
 /nbdist/
-/.nb-gradle/
-
-# VS Code
-.vscode/
+/.gradle/
+/.mvn/
 
 # -----------------------------------
-# 5) Arquivos de sistema
+# 6) Arquivos de sistema
 # -----------------------------------
 .DS_Store
 Thumbs.db
