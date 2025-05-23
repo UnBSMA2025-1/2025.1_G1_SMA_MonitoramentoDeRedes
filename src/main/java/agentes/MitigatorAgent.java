@@ -1,0 +1,39 @@
+package agentes;
+
+import jade.core.Agent;
+import jade.core.behaviours.CyclicBehaviour;
+import jade.domain.DFService;
+import jade.domain.FIPAAgentManagement.*;
+import jade.domain.FIPAException;
+import jade.lang.acl.ACLMessage;
+
+public class MitigatorAgent extends Agent {
+    protected void setup() {
+        DFAgentDescription dfd = new DFAgentDescription();
+        dfd.setName(getAID());
+
+        ServiceDescription sd = new ServiceDescription();
+        sd.setType("mitigation");
+        sd.setName("ip-blocker");
+        dfd.addServices(sd);
+
+        try {
+            DFService.register(this, dfd);
+        } catch (FIPAException e) {
+            e.printStackTrace();
+        }
+        System.out.println("[MITIGATOR] Agente mitigador iniciado.");
+        addBehaviour(new CyclicBehaviour() {
+            public void action() {
+                ACLMessage msg = receive();
+                if (msg != null) {
+                    String ip = msg.getContent();
+                    System.out.println("[MITIGATOR] Bloqueando IP: " + ip);
+                    RequestRouter.blockIp(ip);
+                } else {
+                    block();
+                }
+            }
+        });
+    }
+}
