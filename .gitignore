@@ -21,7 +21,7 @@
 # -----------------------------------
 # 3) Dependências externas
 # -----------------------------------
-/libs/                       # JARs “colados” (ex.: jade.jar)
+#/libs/                       # JARs “colados” (ex.: jade.jar)
 
 # -----------------------------------
 # 4) Logs e temporários
