@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="jade">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/jade.jar!/" />
+      <root url="file://$PROJECT_DIR$/libs/Jadelib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="file://$PROJECT_DIR$/libs/Jadelib" recursive="false" />
+  </library>
+</component>

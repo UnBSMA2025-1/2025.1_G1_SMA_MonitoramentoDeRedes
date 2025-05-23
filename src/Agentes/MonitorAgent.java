@@ -1,4 +1,4 @@
-package Agentes;
+package src.Agentes;
 
 import jade.core.Agent;
 import jade.core.behaviours.*;
