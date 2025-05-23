@@ -5,6 +5,8 @@
 /*.iml                       # ignora modules (TrabalhoTep.iml, *.iml)
 !.idea/runConfigurations/  # exceto Run/Debug Configs, se houver
 !.idea/runConfigurations/*.xml
+!.idea/libraries/
+!.idea/misc.xml
 
 # -----------------------------------
 # 2) Build outputs / artefatos
