@@ -18,6 +18,9 @@
 *.jar
 *.war
 
+# Mas NÃO ignora os jars dentro de libs/
+!/libs/*.jar
+
 # -----------------------------------
 # 3) Dependências externas
 # -----------------------------------
