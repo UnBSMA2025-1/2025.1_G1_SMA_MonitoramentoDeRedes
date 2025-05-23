@@ -1,9 +1,7 @@
 <component name="libraryTable">
     <library name="libs">
         <CLASSES>
-            <root url="file://$PROJECT_DIR$/libs/Jadelib" />
-            <!-- Se houver mais .jar, adicione uma linha abaixo para cada um -->
-            <!-- <root url="file://$PROJECT_DIR$/libs/Jadelib/outro.jar" /> -->
+            <root url="jar://$PROJECT_DIR$/libs/Jadelib/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
