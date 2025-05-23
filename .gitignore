@@ -21,7 +21,7 @@ Thumbs.db
 
 # Permitir libs versionadas
 !/libs/
-/libs/*.jar
+!/libs/jade.jar
 
 # Permitir arquivos importantes do IntelliJ
 !/TrabalhoTep.iml
