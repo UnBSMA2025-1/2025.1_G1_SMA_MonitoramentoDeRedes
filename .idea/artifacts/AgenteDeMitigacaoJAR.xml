@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="AgenteDeMitigacaoJAR">
-    <output-path>$PROJECT_DIR$/out/artifacts/AgenteDeMitigacaoJAR</output-path>
-    <root id="archive" name="AgenteDeMitigacaoJAR.jar">
-      <element id="file-copy" path="$PROJECT_DIR$/out/production/TrabalhoTep/Agentes/MitigatorAgent.class" />
-    </root>
-  </artifact>
-</component>

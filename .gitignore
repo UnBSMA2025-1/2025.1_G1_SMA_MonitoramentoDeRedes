@@ -1,29 +1,66 @@
-### IntelliJ IDEA ###
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
+# -----------------------------------
+# 1) IntelliJ IDEA
+# -----------------------------------
+# ignora toda a pasta de projeto do IDEA
+/.idea/
+/*.iml
+# mas mantém só as configurações de Run/Debug compartilháveis
+!.idea/runConfigurations/
+!.idea/runConfigurations/*.xml
 
-### Eclipse ###
+# -----------------------------------
+# 2) Diretórios de build / artefatos
+# -----------------------------------
+# saídas da compilação Java
+/out/
+/build/
+/target/
+/bin/
+# classes compiladas e pacotes gerados
+*.class
+*.jar
+*.war
+
+# se tiver libs internas (ex.: jade.jar), ignore aqui também
+/libs/*.jar
+
+# logs, temporários
+*.log
+*.tmp
+
+# -----------------------------------
+# 3) Ferramentas de build
+# -----------------------------------
+# se algum dia usarem Maven ou Gradle
+/.mvn/
+/.gradle/
+/settings.gradle
+!/.mvn/wrapper/maven-wrapper.jar
+
+# -----------------------------------
+# 4) Outras IDEs (Eclipse, NetBeans, VSCode)
+# -----------------------------------
+# Eclipse
 .apt_generated
 .classpath
 .factorypath
 .project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+.settings/
+/.springBeans/
+/sts4-cache/
 
-### NetBeans ###
+# NetBeans
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
+# VS Code
 .vscode/
 
-### Mac OS ###
+# -----------------------------------
+# 5) Arquivos de sistema
+# -----------------------------------
 .DS_Store
+Thumbs.db
