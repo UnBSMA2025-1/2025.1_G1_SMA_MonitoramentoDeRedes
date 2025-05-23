@@ -3,6 +3,7 @@
 # -----------------------------------
 /.idea/                      # ignora tudo da IDE
 /*.iml                       # ignora modules (TrabalhoTep.iml, *.iml)
+!TrabalhoTep.iml
 !.idea/runConfigurations/  # exceto Run/Debug Configs, se houver
 !.idea/runConfigurations/*.xml
 !.idea/libraries/

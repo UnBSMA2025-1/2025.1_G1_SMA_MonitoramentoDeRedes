@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="AgenteDeMonitoramentoJAR">
+    <output-path>$PROJECT_DIR$/out/artifacts/AgenteDeMonitoramentoJAR</output-path>
+    <root id="archive" name="AgenteDeMonitoramentoJAR.jar">
+      <element id="file-copy" path="$PROJECT_DIR$/out/production/TrabalhoTep/Agentes/MonitorAgent.class" />
+    </root>
+  </artifact>
+</component>

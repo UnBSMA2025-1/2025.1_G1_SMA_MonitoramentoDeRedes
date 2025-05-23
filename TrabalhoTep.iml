@@ -10,12 +10,13 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="file://$USER_HOME$/Downloads/JADE-all-4.6.0/JADE-bin-4.6.0/jade/lib" />
+          <root url="file://$MODULE_DIR$/libs/Jadelib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$USER_HOME$/Downloads/JADE-all-4.6.0/JADE-bin-4.6.0/jade/lib" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/libs/Jadelib" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="libs" level="project" />
   </component>
 </module>
