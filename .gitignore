@@ -1,0 +1,5 @@
+# Ignora arquivos .txt gerados pelo JADE
+*.txt
+
+# Pasta dos arquivos compilados pelo maven
+target/
