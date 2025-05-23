@@ -1,53 +1,64 @@
 # -----------------------------------
 # 1) IntelliJ IDEA
 # -----------------------------------
-# ignora toda a pasta de projeto do IDEA
+# Ignora toda a pasta de projeto do IDEA
 /.idea/
 /*.iml
-# mas mantém só as configurações de Run/Debug compartilháveis
+
+# Mas mantém só as configurações de Run/Debug compartilháveis
 !.idea/runConfigurations/
 !.idea/runConfigurations/*.xml
 
 # -----------------------------------
 # 2) Diretórios de build / artefatos
 # -----------------------------------
-# saídas da compilação Java
+# Saídas da compilação Java
 /out/
 /build/
 /target/
 /bin/
-# classes compiladas e pacotes gerados
+
+# Classes compiladas e pacotes gerados
 *.class
 *.jar
 *.war
 
-# se tiver libs internas (ex.: jade.jar), ignore aqui também
-/libs/*.jar
+# Se tiver libs internas (ex.: jade.jar), ignore a pasta inteira
+/libs/
 
-# logs, temporários
+# Logs e arquivos temporários
 *.log
 *.tmp
 
 # -----------------------------------
-# 3) Ferramentas de build
+# 3) Ferramentas de build (Maven / Gradle)
 # -----------------------------------
-# se algum dia usarem Maven ou Gradle
+# Maven
 /.mvn/
+/pom.xml.tag
+/pom.xml.releaseBackup/
+/pom.xml.versionsBackup/
+/pom.xml.next
+/release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# Gradle
 /.gradle/
-/settings.gradle
-!/.mvn/wrapper/maven-wrapper.jar
+/build/
+/!gradle/wrapper/gradle-wrapper.jar
+/gradle-wrapper.properties
 
 # -----------------------------------
-# 4) Outras IDEs (Eclipse, NetBeans, VSCode)
+# 4) Outras IDEs e editores
 # -----------------------------------
 # Eclipse
-.apt_generated
 .classpath
-.factorypath
 .project
 .settings/
-/.springBeans/
-/sts4-cache/
+.apt_generated
+.factorypath
 
 # NetBeans
 /nbproject/private/
