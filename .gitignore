@@ -14,7 +14,7 @@
 *.log
 *.tmp
 *.class
-
+*.iml
 # Ignorar arquivos do SO
 .DS_Store
 Thumbs.db
@@ -29,3 +29,5 @@ Thumbs.db
 !/.idea/libraries/
 !/.idea/runConfigurations/
 !/.idea/misc.xml
+
+
