@@ -1,11 +1,11 @@
 <component name="libraryTable">
-  <library name="jade">
-    <CLASSES>
-      <root url="file://$PROJECT_DIR$/libs/Jadelib/jade.jar" />
-      <!-- Se tiver mais jars, adicione assim -->
-      <!-- <root url="file://$PROJECT_DIR$/libs/Jadelib/outro.jar" /> -->
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
+    <library name="libs">
+        <CLASSES>
+            <root url="file://$PROJECT_DIR$/libs/Jadelib/jade.jar" />
+            <!-- Se houver mais .jar, adicione uma linha abaixo para cada um -->
+            <!-- <root url="file://$PROJECT_DIR$/libs/Jadelib/outro.jar" /> -->
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+    </library>
 </component>

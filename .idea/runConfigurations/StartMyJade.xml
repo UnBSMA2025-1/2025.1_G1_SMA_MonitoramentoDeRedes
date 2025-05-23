@@ -2,7 +2,7 @@
   <configuration default="false" name="StartMyJade" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="jade.Boot" />
     <module name="TrabalhoTep" />
-    <option name="PROGRAM_PARAMETERS" value="-gui -agents &quot;mitigator:Agentes.MitigatorAgent;monitor:Agentes.MonitorAgent&quot; " />
+    <option name="PROGRAM_PARAMETERS" value="-gui -agents &quot;mitigator:Agentes.MitigatorAgent;monitor:Agentes.MonitorAgent&quot;" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

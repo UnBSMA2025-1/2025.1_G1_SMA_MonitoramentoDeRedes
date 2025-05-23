@@ -1,59 +1,31 @@
-# -----------------------------------
-# 1) IntelliJ IDEA
-# -----------------------------------
-/.idea/                      # ignora tudo da IDE
-!.idea/runConfigurations/    # exceto Run/Debug Configs
-!.idea/runConfigurations/*.xml
-!.idea/libraries/
-!.idea/libraries/*.xml
-!.idea/misc.xml
-!.idea/modules.xml
+# IntelliJ IDEA
+/.idea/workspace.xml
+/.idea/tasks.xml
+/.idea/dictionaries/
+/.idea/jsLibraryMappings.xml
 
-# Ignorar vcs.xml (local) para evitar conflito
-.idea/vcs.xml
-
-# Permitir o arquivo do módulo .iml específico
-!TrabalhoTep.iml
-
-# -----------------------------------
-# 2) Bibliotecas locais
-# -----------------------------------
-!libs/
-!libs/**/*.jar
-
-# -----------------------------------
-# 3) Build outputs / artefatos
-# -----------------------------------
+# Ignorar artefatos de build
 /out/
 /build/
 /target/
 /bin/
 
-*.class
-*.jar
-*.war
-
-# -----------------------------------
-# 4) Logs e temporários
-# -----------------------------------
+# Ignorar arquivos temporários e logs
 *.log
 *.tmp
+*.class
 
-# -----------------------------------
-# 5) Outras IDEs / editores
-# -----------------------------------
-.vscode/
-.Factorypath
-.project
-.settings/
-.nbproject/
-.dist/
-.nbdist/
-.gradle/
-.mvn/
-
-# -----------------------------------
-# 6) Arquivos de sistema
-# -----------------------------------
+# Ignorar arquivos do SO
 .DS_Store
 Thumbs.db
+
+# Permitir libs versionadas
+!/libs/
+/libs/*.jar
+
+# Permitir arquivos importantes do IntelliJ
+!/TrabalhoTep.iml
+!/.idea/modules.xml
+!/.idea/libraries/
+!/.idea/runConfigurations/
+!/.idea/misc.xml
