@@ -1,29 +1,37 @@
-### IntelliJ IDEA ###
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
+# IntelliJ IDEA
+/.idea/
+/*.iml
+*.iws
+# configurações sensíveis do workspace
+/.idea/workspace.xml
+/.idea/tasks.xml
+/.idea/dictionaries/
+/.idea/vcs.xml
+.idea/misc.xml
 
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/src/main/**/bin/
-!**/src/test/**/bin/
+# Build outputs
+/out/
+/target/
+/build/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# Artefatos gerados (JARs, WARs, etc)
+*.jar
+*.war
 
-### VS Code ###
-.vscode/
+# Configurações locais, logs, temp
+*.log
+*.tmp
+*.class
 
-### Mac OS ###
+# Se usar Maven ou Gradle (não parece ser o caso, mas só pra referência)
+/build/
+/.settings/
+/.cache/
+/.mvn/
+!/.mvn/wrapper/maven-wrapper.jar
+.gradle/
+/wrapper/
+
+# Arquivos de sistema
 .DS_Store
+Thumbs.db
