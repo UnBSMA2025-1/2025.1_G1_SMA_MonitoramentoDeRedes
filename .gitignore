@@ -2,18 +2,29 @@
 # 1) IntelliJ IDEA
 # -----------------------------------
 /.idea/                      # ignora tudo da IDE
-/*.iml                       # ignora modules (TrabalhoTep.iml, *.iml)
-!TrabalhoTep.iml
-!.idea/runConfigurations/  # exceto Run/Debug Configs, se houver
+!.idea/runConfigurations/    # exceto Run/Debug Configs
 !.idea/runConfigurations/*.xml
 !.idea/libraries/
+!.idea/libraries/*.xml
 !.idea/misc.xml
+!.idea/modules.xml
+
+# Ignorar vcs.xml (local) para evitar conflito
 .idea/vcs.xml
 
+# Permitir o arquivo do módulo .iml específico
+!TrabalhoTep.iml
+
 # -----------------------------------
-# 2) Build outputs / artefatos
+# 2) Bibliotecas locais
 # -----------------------------------
-/out/                        # classes compiladas e JARs de build
+!libs/
+!libs/**/*.jar
+
+# -----------------------------------
+# 3) Build outputs / artefatos
+# -----------------------------------
+/out/
 /build/
 /target/
 /bin/
@@ -21,15 +32,6 @@
 *.class
 *.jar
 *.war
-
-# Mas NÃO ignora os jars dentro de libs/
-!/libs/
-!/libs/*.jar
-
-# -----------------------------------
-# 3) Dependências externas
-# -----------------------------------
-#/libs/                       # JARs “colados” (ex.: jade.jar)
 
 # -----------------------------------
 # 4) Logs e temporários
@@ -44,11 +46,11 @@
 .Factorypath
 .project
 .settings/
-/nbproject/
-/dist/
-/nbdist/
-/.gradle/
-/.mvn/
+.nbproject/
+.dist/
+.nbdist/
+.gradle/
+.mvn/
 
 # -----------------------------------
 # 6) Arquivos de sistema
