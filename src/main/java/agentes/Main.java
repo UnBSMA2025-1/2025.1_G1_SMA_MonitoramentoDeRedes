@@ -8,9 +8,8 @@ public class Main {
                 "-gui",
                 "monitor:agentes.MonitorAgent;" +
                         "mitigator:agentes.MitigatorAgent;" +
-                        "att1:agentes.AttackAgent;" +
-                        "att2:agentes.AttackAgent;" +
-                        "att3:agentes.AttackAgent;" +
+                        "supervisor:agentes.SupervisorAgent;" +
+                        "attack:agentes.AttackAgent;" +
                         "user1:agentes.UserAgent;" +
                         "user2:agentes.UserAgent"
         });
