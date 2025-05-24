@@ -1,14 +1,15 @@
 package agentes;
 
-import javax.management.monitor.Monitor;
-
 import static spark.Spark.*;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.*;
 
 public class RequestRouter {
     private static MonitorGateway monitor;
-    private static final Set<String> blockedIps = new HashSet<>();
+
+    private static final Set<String> blockedIps = ConcurrentHashMap.newKeySet();
+
+    private static final ExecutorService executor = Executors.newFixedThreadPool(10);
 
     public static void registerMonitor(MonitorGateway m) {
         monitor = m;
@@ -16,10 +17,12 @@ public class RequestRouter {
 
     public static void blockIp(String ip) {
         blockedIps.add(ip);
+        System.out.println("[ROUTER] IP bloqueado: " + ip);
     }
 
     public static void startServer() {
         port(8080);
+
         post("/", (req, res) -> {
             String ip = req.headers("X-Real-IP");
             if (ip == null) ip = req.ip();
@@ -30,9 +33,26 @@ public class RequestRouter {
             }
 
             if (monitor != null) {
-                monitor.receiveRequest(ip);
+                final String ipCopy = ip;
+                executor.submit(() -> {
+                    try {
+                        monitor.receiveRequest(ipCopy);
+                    } catch (Exception e) {
+                        System.err.println("[ROUTER] Erro ao enviar IP ao monitor: " + e.getMessage());
+                    }
+                });
             }
-            return "Request send to MonitorAgent";
+
+            return "Request sent to MonitorAgent";
         });
+
+        post("/reset", (req, res) -> {
+            blockedIps.clear();
+            return "Blocked IPs reset.";
+        });
+    }
+
+    public static void shutdown() {
+        executor.shutdown();
     }
 }
