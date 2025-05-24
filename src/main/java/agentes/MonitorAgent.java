@@ -5,6 +5,7 @@ import jade.core.behaviours.*;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.*;
 import jade.domain.FIPAException;
+import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import java.util.Map;
 
@@ -15,6 +16,19 @@ public class MonitorAgent extends Agent implements MonitorGateway {
         node = new Node();
         RequestRouter.registerMonitor(this);
         System.out.println("[MONITOR] Agente monitor iniciado.");
+
+        addBehaviour(new CyclicBehaviour() {
+            public void action() {
+                ACLMessage msg = receive();
+                if (msg != null && msg.getContent().equals("ping-monitor")) {
+                    ACLMessage reply = msg.createReply();
+                    reply.setContent("pong-monitor");
+                    send(reply);
+                } else {
+                    block();
+                }
+            }
+        });
 
         addBehaviour(new TickerBehaviour(this, 5000) {
             protected void onTick() {
@@ -50,6 +64,8 @@ public class MonitorAgent extends Agent implements MonitorGateway {
                         ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
                         msg.addReceiver(dfd.getName());
                         msg.setContent(ip);
+                        msg.setConversationId("mitigation-request");
+                        System.out.println("[MONITOR] Enviando pedido de bloqueio para agente mitigador...");
                         send(msg);
                     }
                 } catch (FIPAException e) {
