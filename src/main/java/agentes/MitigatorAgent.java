@@ -23,17 +23,23 @@ public class MitigatorAgent extends Agent {
             e.printStackTrace();
         }
         System.out.println("[MITIGATOR] Agente mitigador iniciado.");
+
         addBehaviour(new CyclicBehaviour() {
             public void action() {
                 ACLMessage msg = receive();
-                if (msg != null) {
+                if (msg != null && msg.getConversationId().equals("mitigation-request")) {
                     String ip = msg.getContent();
                     System.out.println("[MITIGATOR] Bloqueando IP: " + ip);
                     RequestRouter.blockIp(ip);
+                } else if (msg != null && msg.getContent().equals("ping-mitigator")) {
+                    ACLMessage reply = msg.createReply();
+                    reply.setContent("pong-mitigator");
+                    send(reply);
                 } else {
                     block();
                 }
             }
         });
+
     }
 }
