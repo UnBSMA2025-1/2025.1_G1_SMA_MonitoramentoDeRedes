@@ -18,6 +18,11 @@ public class MitigatorAgent extends Agent {
         dfd.addServices(sd);
 
         try {
+            DFService.deregister(this);
+        } catch (Exception e) {
+            System.out.println("[MITIGATOR] Nenhum registro anterior para o agente mitigador no DF. Prosseguindo...");
+        }
+        try {
             DFService.register(this, dfd);
         } catch (FIPAException e) {
             e.printStackTrace();

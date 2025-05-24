@@ -7,6 +7,7 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.wrapper.AgentController;
 import jade.wrapper.ContainerController;
+import jade.wrapper.ControllerException;
 
 public class SupervisorAgent extends Agent {
     private static final String MONITOR_NAME = "monitor";
@@ -48,9 +49,25 @@ public class SupervisorAgent extends Agent {
                     System.out.println("[SUPERVISOR] Agente monitor não respondeu. Reiniciando...");
                     try {
                         ContainerController cc = getContainerController();
+                        AgentController existing = null;
+                        try {
+                            existing = cc.getAgent(MONITOR_NAME);
+                        } catch (ControllerException e) {
+
+                        }
+
+                        if (existing != null) {
+                            try {
+                                existing.kill();
+                                Thread.sleep(1000);
+                            } catch (Exception e) {
+                                System.err.println("[SUPERVISOR] Falha ao matar agente monitor: " + e.getMessage());
+                            }
+                        }
                         AgentController newMonitor = cc.createNewAgent(MONITOR_NAME, "agentes.MonitorAgent", null);
                         newMonitor.start();
                         monitorAlive = true;
+                        System.out.println("[SUPERVISOR] Agente monitor reiniciado com sucesso.");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -65,9 +82,25 @@ public class SupervisorAgent extends Agent {
                     System.out.println("[SUPERVISOR] Agente mitigador não respondeu. Reiniciando...");
                     try {
                         ContainerController cc = getContainerController();
+                        AgentController existing = null;
+                        try {
+                            existing = cc.getAgent(MITIGATOR_NAME);
+                        } catch (ControllerException e) {
+
+                        }
+
+                        if (existing != null) {
+                            try {
+                                existing.kill();
+                                Thread.sleep(1000);
+                            } catch (Exception e) {
+                                System.err.println("[SUPERVISOR] Falha ao matar agente mitigador: " + e.getMessage());
+                            }
+                        }
                         AgentController newMonitor = cc.createNewAgent(MITIGATOR_NAME, "agentes.MitigatorAgent", null);
                         newMonitor.start();
                         mitigatorAlive = true;
+                        System.out.println("[SUPERVISOR] Agente mitigador reiniciado com sucesso.");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -75,7 +108,6 @@ public class SupervisorAgent extends Agent {
             }
         });
 
-        // Pong do mitigador
         addBehaviour(new TickerBehaviour(this, 1000) {
             protected void onTick() {
                 MessageTemplate mt = MessageTemplate.MatchContent("pong-mitigator");
