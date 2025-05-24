@@ -3,3 +3,6 @@
 
 # Pasta dos arquivos compilados pelo maven
 target/
+
+# Pasta do IntelliJ
+.idea/
