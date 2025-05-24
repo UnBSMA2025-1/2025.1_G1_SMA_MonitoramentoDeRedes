@@ -2,66 +2,91 @@
 
 **Disciplina**: FGA0053 - Sistemas Multiagentes <br>
 **Nro do Grupo (de acordo com a Planilha de Divisão dos Grupos)**: 01<br>
-**Frente de Pesquisa**: XXXXXXXXXX<br>
+**Frente de Pesquisa**: SMA para monitoramento de redes<br>
 
 ## Alunos
-|Matrícula | Aluno |
-| -- | -- |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
+| Matrícula  | Aluno           |
+|------------|-----------------|
+| 24/1025480 | Yan Rodrigues       |
+| xx/xxxxxx  | xxxx xxxx xxxxx |
 
-## Sobre ###ALTERAR!!!!!!
+## Sobre
 
-Este projeto simula uma infraestrutura de rede utilizando uma árvore binária. Em cada nó, temos dois agentes:
+Este projeto simula agentes que monitoram rotas HTTP e verificam e bloqueiam possíveis ataques DOS. Caso a rota esteja sob ataque de
+Todo esse processo é feito de forma acoplada a um servidor (Nesse caso, o Spark), permitindo maior modularidade do projeto.
+Além disso, há uma resistência a falhas, pois caso um agente crítico pare de responder, ele é derrubado e reiniciado. <br>
 
-- 🛡️ `AgenteMonitor`: monitora requisições e detecta possíveis ataques
-- 🔒 `AgenteMitigador`: bloqueia IPs maliciosos
-
-Além disso, temos agentes externos que simulam:
-
-- 🧨 Atacantes (múltiplas requisições por segundo)
-- 👤 Usuários legítimos (requisições moderadas)
-
+## Agentes do sistema
+- 🛡️ `MonitorAgent`: Monitora requisições e detecta possíveis ataques
+- 🔒 `MitigatorAgent`: Bloqueia IPs maliciosos
+- 🖥️ `UserAgent`: Simula as requisições de um usuário normal.
+- 🧨 `AttackAgent`: Simula um ataque DOS na rede.
+- 🔧 `SupervisorAgent`: Supervisiona os agentes `MonitorAgent` e `MitigatorAgent`, de forma que garanta que sempre estarão funcionais.
 ## 📁 Estrutura
-src/agentes/
+```bash
+├── src/
+│ └── main/
+│   └── java/
+│     └── agentes/
+│       ├── MonitorAgent.java
+│       ├── MitigatorAgent.java
+│       ├── RequesterAgent.java
+│       ├── SupervisorAgent.java
+│       └── RequestRouter.java
+├── pom.xml
+├── README.md
+├── run.bat
+└── run.sh
+```
 
- AgenteMonitor.java
- AgenteMitigador.java
- AgenteUsuarioTemplate.java
- AgenteAtaque.java
- AgenteAcesso.java
- InfraArvore.java
-
-bash
-Copiar
-Editar
 
 ## 🛠️ Pré-requisitos
 
 - Java 8+
-- JADE (adicione `jade.jar` em `/libs`)
+- Apache Maven
 - Terminal ou IDE (como IntelliJ, Eclipse)
 
-## 🔧 Compilação
 
-```bash
-# Compilar todos os arquivos
-javac -d out -cp libs/jade.jar src/agentes/*.java
-```
-<b>
-Descreva o seu projeto em linhas gerais. 
-Use referências, links, que permitam conhecer um pouco mais sobre o projeto.
-Capriche nessa seção, pois ela é a primeira a ser lida pelos interessados no projeto.</b>
-
-## Screenshots
-Adicione 2 ou mais screenshots do projeto em termos de interface e/ou funcionamento.
+## Screenshots (TODO)
 
 ## Instalação 
-**Linguagens**: xxxxxx<br>
-**Tecnologias**: xxxxxx<br>
-Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
-Insira um manual ou um script para auxiliar ainda mais.
-Gifs animados e outras ilustrações são bem-vindos!
+**Linguagens**: Java 8+ e Shell Script (para scripts auxiliares)<br>
+**Tecnologias**: Maven e JADE<br>
+
+## 🔧 Como rodar
+
+Verifique se o Maven está instalado em sua máquina.
+```bash
+mvn --version
+```
+Caso não esteja instalado, instale-o:
+```bash
+# Windows
+choco install maven # ou
+scoop install maven
+
+# Linux
+sudo apt install maven # ou
+sudo dnf install maven
+
+# macOS
+brew install maven
+```
+Após isso, rode o script auxiliar:
+```bash
+# Linux
+chmod +x run.sh
+./run.sh
+
+# Windows
+.\run.bat
+
+# macOS
+chmod +x run.sh
+./run.sh # ou
+sh run.sh
+```
+Então, o Maven deve cuidar de todo o resto do processo. <br>
 
 ## Uso 
 Explique como usar seu projeto.
@@ -86,10 +111,13 @@ Apresente, brevemente, como cada membro do grupo contribuiu para o projeto.
 
 ## Outros 
 Quaisquer outras informações sobre o projeto podem ser descritas aqui. Não esqueça, entretanto, de informar sobre:
-(i) Lições Aprendidas;
-(ii) Percepções;
-(iii) Contribuições e Fragilidades, e
-(iV) Trabalhos Futuros.
+### Lições Aprendidas
+### Percepções
+### Fragilidades do Sistema
+- Por limitações do JADE, o sistema não convém com os protocolos FIPA (FIPA Contract Net Interaction), pois ele não permite que sejam feitas muitas Calls for Proposal (CFP) simultaneamente para vários destinatários;
+- Percebe-se que o JADE possui algumas ressalvas quanto à perfomance, podendo afetar a robustez do servidor.
+  Foram tomadas algumas medidas para evitar isso, como por exemplo a utilização de `ConcurrentHashMap`, que é thread-safe, e `ExecutorService` para rodar o recebimento de requisições do
+  `MonitorAgent` de forma assíncrona, `FixedThreadPool()` para limitar a concorrência e evitar a sobrecarga nas rotas, etc...
 
 ## Fontes
 Referencie, adequadamente, as referências utilizadas.
