@@ -25,10 +25,11 @@ public class UserAgent extends Agent {
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     con.setRequestMethod("POST");
                     con.setRequestProperty("X-Real-IP", fakeIp);
-                    System.out.print("[USER] Requisição enviada.");
                     int code = con.getResponseCode();
-                    if (code != 403) {
-                        System.out.println("[USER] Agente usuário conseguiu acesso.");
+                    if (code == 403) {
+                        System.out.println("[DEBUG] Aconteceu algo de errado, Agente usuário foi bloqueado.");
+                    } else {
+                        System.out.println("[USER] Agente usuário enviou requisição com sucesso.");
                     }
                     InputStream in = con.getInputStream();
                     in.close();
