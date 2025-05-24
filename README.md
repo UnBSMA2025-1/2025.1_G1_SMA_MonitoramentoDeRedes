@@ -1,8 +1,7 @@
-# Monitoramento de Redes e mitigação de ataques DOS
-
+# Uma Abordagem Baseada em Agentes para Detecção e Mitigação de Ataques DoS em Ambientes Web
 **Disciplina**: FGA0053 - Sistemas Multiagentes <br>
 **Nro do Grupo (de acordo com a Planilha de Divisão dos Grupos)**: 01<br>
-**Frente de Pesquisa**: SMA para monitoramento de redes<br>
+**Frente de Pesquisa**: Monitoramento e Mitigação de Ataques DoS com Sistemas Multiagentes<br>
 
 ## Alunos
 | Matrícula  | Aluno           |
@@ -43,9 +42,7 @@ Além disso, há uma resistência a falhas, pois caso um agente crítico pare de
 ## 🛠️ Pré-requisitos
 
 - Java 8+
-- Apache Maven
-- Terminal ou IDE (como IntelliJ, Eclipse)
-
+- Apache Mave
 
 ## Screenshots (TODO)
 
