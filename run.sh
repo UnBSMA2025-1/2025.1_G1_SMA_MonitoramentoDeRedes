@@ -1,4 +1,4 @@
 #!/bin/bash
-mvn clean compile
+mvn clean install 
 mvn exec:java
 
