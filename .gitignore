@@ -1,34 +1,8 @@
-# IntelliJ IDEA
-/.idea/workspace.xml
-/.idea/tasks.xml
-/.idea/dictionaries/
-/.idea/jsLibraryMappings.xml
+# Ignora arquivos .txt gerados pelo JADE
+*.txt
 
-# Ignorar artefatos de build
-/out/
-/build/
-/target/
-/bin/
+# Pasta dos arquivos compilados pelo maven
+target/
 
-# Ignorar arquivos temporários e logs
-*.log
-*.tmp
-*.class
-*.iml
-# Ignorar arquivos do SO
-.DS_Store
-Thumbs.db
-
-# Permitir libs versionadas
-!/libs/
-!/libs/jade.jar
-
-# Permitir arquivos importantes do IntelliJ
-!/TrabalhoTep.iml
-!/.idea/modules.xml
-!/.idea/libraries/
-!/.idea/runConfigurations/
-!/.idea/misc.xml
-
-
-!ReadMe.txt
+# Pasta do IntelliJ
+.idea/
