@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1f77142-55e7-45f1-8d4d-cb2fd1889f69" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/StartMyJade.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/StartMyJade.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Agentes/AcessTemplateAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agentes/AcessTemplateAgent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Agentes/AutoUserAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agentes/AutoUserAgent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Agentes/MitigatorAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agentes/MitigatorAgent.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Agentes/MonitorAgent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Agentes/MonitorAgent.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +92,8 @@
       <option name="presentableId" value="Default" />
       <updated>1748053275655</updated>
       <workItem from="1748053277033" duration="1742000" />
-      <workItem from="1748055050441" duration="1016000" />
+      <workItem from="1748055050441" duration="1632000" />
+      <workItem from="1748101343756" duration="4156000" />
     </task>
     <servers />
   </component>

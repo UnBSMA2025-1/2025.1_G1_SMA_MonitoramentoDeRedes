@@ -15,6 +15,8 @@ public class MonitorAgent extends Agent {
     private Map<String, String> ipPorConversationId = new HashMap<>();
     private MessageTemplate mt;
 
+
+
     protected void setup() {
 //        // Adiciona IPs fictícios para teste
 ////        ipsParaBloquear.add("192.168.1.100");
@@ -48,7 +50,12 @@ public class MonitorAgent extends Agent {
             System.out.println("Nenhum IP recebido via argumento.");
         }
 
+        addBehaviour(new OneShotBehaviour() {
+            @Override
+            public void action() {
 
+            }
+        });
 
         addBehaviour(new TickerBehaviour(this, 10000) {
             protected void onTick() {
