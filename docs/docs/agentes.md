@@ -64,3 +64,15 @@ No método `setup()`, o agente supervisor implementa os seguintes comportamentos
 - **Comportamento Ticker `(TickerBehaviour)`** a cada 1 segundo `(1000ms)`, para verificar se houve alguma resposta à mensagem com conteúdo `pong-mitigador`. Se houver, seta `mitigatorAlive = true`.
 - **Comportamento Ticker `(TickerBehaviour)`** a cada 10 segundos `(10000ms)` em que, caso `monitorAlive = false`, ele reinicia o `MonitorAgent` da plataforma JADE.
 - **Comportamento Ticker `(TickerBehaviour)`** a cada 10 segundos `(10000ms)` em que, caso `mitigatorAlive = false`, ele reinicia o `MitigatorAgent` da plataforma JADE.
+
+## Classe `Node`
+A classe `Node` foi feita para facilitar os acessos às requisições pelo `MonitorAgent`. Ela inclui métodos e atributos que auxiliam na busca das requisições pelo agente monitor.
+### Atributos
+
+- `private final Map<String, Integer> requests`, que é um `HashMap` que guarda o IP e o total de requisições feitas pelo usuário.
+
+### Métodos
+
+- `public synchronized void registerRequest(String ip)`, método para registrar as requisições no `HashMap`.
+- `public synchronized Map<String, Integer> getRequestSnapshot()`, método para obter uma snapshot do `HashMap`.
+- `public synchronized void resetRequests()`, para limpar as requisições feitas. 
