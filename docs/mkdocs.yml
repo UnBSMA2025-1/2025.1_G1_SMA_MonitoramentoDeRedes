@@ -1,0 +1,12 @@
+site_name: Sistema Multiagentes Anti-DoS
+theme:
+  name: material
+
+nav:
+  - Início: index.md
+  - Visão Geral: overview.md
+  - Arquitetura dos Agentes: agentes.md
+  - API HTTP: api.md
+  - Relatórios: relatorios.md
+  - Execução: execucao.md
+  - Estrutura de Pastas: estrutura.md
