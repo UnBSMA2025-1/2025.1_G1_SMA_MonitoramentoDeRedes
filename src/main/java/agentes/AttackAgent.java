@@ -35,9 +35,13 @@ public class AttackAgent extends Agent {
                     InputStream in = con.getInputStream();
                     in.close();
                 } catch (Exception e) {
-                    System.out.println("[ATTACK] Erro no agente de ataque " + getLocalName() + ": " + e.getMessage());
+                    System.out.println("[ATTACK] Erro no agente de ataque " + getLocalName() + ": " + e.getMessage() + " Agente sendo encerrado.");
+                    doDelete();
                 }
             }
         });
+    }
+    protected void takeDown() {
+        // Aqui você pode fechar conexões, salvar estados, etc.
     }
 }

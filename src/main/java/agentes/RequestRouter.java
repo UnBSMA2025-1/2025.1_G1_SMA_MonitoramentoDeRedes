@@ -3,9 +3,32 @@ package agentes;
 import static spark.Spark.*;
 import java.util.Set;
 import java.util.concurrent.*;
+import jade.wrapper.AgentController;
+import jade.wrapper.ContainerController;
+
+
+import java.util.UUID;
+
 
 public class RequestRouter {
+    private static ContainerController container;
+
+    public RequestRouter(ContainerController c) {
+        container = c;
+    }
+
+    public static void criarAgente() throws Exception {
+        String userName = UUID.randomUUID().toString().replace("-", ""); // Para garantir que não vai dar problema no Jade
+        AgentController user = container.createNewAgent("User" + userName, "agentes.AttackAgent", null);
+        user.start();
+        System.out.println("[RequestRouter] Agente criado: User" + userName);
+    }
+
     private static MonitorGateway monitor;
+
+    public static void setContainer(ContainerController cont) {
+        container = cont;
+    }
 
     private static final Set<String> blockedIps = ConcurrentHashMap.newKeySet();
 
@@ -18,6 +41,12 @@ public class RequestRouter {
     public static void blockIp(String ip) {
         blockedIps.add(ip);
         System.out.println("[ROUTER] IP bloqueado: " + ip);
+
+        try {
+            criarAgente();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void startServer() {
