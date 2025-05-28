@@ -22,6 +22,7 @@ public class RequestRouter {
 
     public static void startServer() {
         port(8080);
+        staticFiles.location("/public");
 
         post("/", (req, res) -> {
             String ip = req.headers("X-Real-IP");
@@ -44,6 +45,11 @@ public class RequestRouter {
             }
 
             return "Request sent to MonitorAgent";
+        });
+
+        get("/", (req, res) -> {
+            res.redirect("/site/index.html");
+            return null;
         });
 
         post("/reset", (req, res) -> {
