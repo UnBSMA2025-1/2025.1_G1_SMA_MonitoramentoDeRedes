@@ -21,6 +21,11 @@ public class RequestRouter {
 
     public static void blockIp(String ip) {
         blockedIps.add(ip);
+
+        //registra no DataStore
+        DataStore.getInstance().blockedIPs.add(ip);
+        DataStore.getInstance().logAlert("[ROUTER] IP bloqueado: " + ip);
+
         System.out.println("[ROUTER] IP bloqueado: " + ip);
     }
 
