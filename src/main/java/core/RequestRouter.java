@@ -1,8 +1,12 @@
-package agentes;
+package core;
+
+import infra.MonitorGateway;
 
 import static spark.Spark.*;
 import java.util.Set;
 import java.util.concurrent.*;
+
+import infra.MonitoringAPI;
 
 public class RequestRouter {
     private static MonitorGateway monitor;
@@ -23,6 +27,7 @@ public class RequestRouter {
     public static void startServer() {
         port(8080);
         staticFiles.location("/public");
+        MonitoringAPI.init();
 
         post("/", (req, res) -> {
             String ip = req.headers("X-Real-IP");

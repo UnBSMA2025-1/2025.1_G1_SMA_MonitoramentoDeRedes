@@ -1,5 +1,6 @@
 package agentes;
 
+import core.RequestRouter;
 import jade.core.Agent;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.domain.DFService;

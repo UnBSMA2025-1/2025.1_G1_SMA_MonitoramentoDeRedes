@@ -4,11 +4,14 @@
 **Frente de Pesquisa**: Monitoramento e Mitigação de Ataques DoS com Sistemas Multiagentes<br>
 
 ## Alunos
-| Matrícula  | Aluno           |
-|------------|-----------------|
-| 24/1025480 | Yan Rodrigues       |
-| xx/xxxxxx  | xxxx xxxx xxxxx |
-
+| Matrícula  | Aluno                   |
+|------------|-------------------------|
+| 24/1025480 | Yan Rodrigues           |
+| 24/1025523 | Gabriel Alves de Araujo |
+| 24/10XXXXX | XX XXXX XXXX XXXX       |
+| 24/10XXXXX | XX XXXX XXXX XXXX       |
+| 24/10XXXXX | XX XXXX XXXX XXXX       |
+| 24/10XXXXX | XX XXXX XXXX XXXX       |
 ## Sobre
 
 Este projeto simula agentes que monitoram rotas HTTP e verificam e bloqueiam possíveis ataques DOS. Caso a rota esteja sob ataque de
@@ -32,6 +35,18 @@ Além disso, há uma resistência a falhas, pois caso um agente crítico pare de
 │       ├── RequesterAgent.java
 │       ├── SupervisorAgent.java
 │       └── RequestRouter.java
+│     └── core/
+│       ├── DataStore.java
+│       ├── Node.java
+│       └── RequestRouter.java
+│     └── infra/
+│       ├── MonitorGateway.java
+│       └── MonitoringAPI.java
+│     └── Main.java
+│   └── resources/
+│     └── public/
+│       └── site/
+│         └── index.html
 ├── pom.xml
 ├── README.md
 ├── run.bat
