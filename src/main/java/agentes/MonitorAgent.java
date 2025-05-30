@@ -1,11 +1,13 @@
 package agentes;
 
+import core.Node;
+import core.RequestRouter;
+import infra.MonitorGateway;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.*;
 import jade.domain.FIPAException;
-import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import java.util.Map;
 
