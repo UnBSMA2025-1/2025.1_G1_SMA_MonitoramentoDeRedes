@@ -23,27 +23,22 @@ public class AttackAgent extends Agent {
     private static final int INJECTION = 1;
 
     private boolean notifiedCreate = false;
-    // Fake IP do atacante, gerado uma única vez
     private final String fakeIp;
 
     public AttackAgent() {
-        // Inicializa fakeIp antes do setup
         this.fakeIp = String.format("10.0.%d.%d", new Random().nextInt(256), new Random().nextInt(256));
     }
 
     protected void setup() {
         System.out.println(getLocalName() + ": inicializado com IP fake = " + fakeIp);
 
-        // Escolhe tipo de ataque na criação
         int tipoAtaque = new Random().nextInt(2);
 
         if (tipoAtaque == DOS) {
             System.out.println(getLocalName() + ": Tipo selecionado = DoS");
-            // Dispara comportamento DoS (repetitivo)
-            addBehaviour(new DosBehaviour(this, 500));
+            addBehaviour(new DosBehaviour(this, 300));
         } else {
             System.out.println(getLocalName() + ": Tipo selecionado = Injection");
-            // Dispara comportamento de Injection apenas uma vez
             addBehaviour(new InjectionBehaviour(this, 2000));
         }
     }
@@ -76,9 +71,7 @@ public class AttackAgent extends Agent {
         super.takeDown();
     }
 
-    /**
-     * Comportamento de SQL Injection: roda uma vez
-     */
+
     private class InjectionBehaviour extends TickerBehaviour {
         public InjectionBehaviour(Agent a, long period) {
             super(a, period);
@@ -86,7 +79,7 @@ public class AttackAgent extends Agent {
         public void onTick() {
             System.out.println(getAgent().getLocalName() + ": Executando SQL Injection com IP " + fakeIp);
             try {
-                URL url = new URL("http://localhost:8080/");  // endpoint raiz
+                URL url = new URL("http://localhost:8080/");  
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("POST");
                 con.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -119,9 +112,7 @@ public class AttackAgent extends Agent {
         }
     }
 
-    /**
-     * Comportamento de DoS: envia requisições repetidamente
-     */
+
     private static class DosBehaviour extends TickerBehaviour {
         public DosBehaviour(Agent a, long period) {
             super(a, period);
@@ -138,7 +129,7 @@ public class AttackAgent extends Agent {
                 con.setRequestProperty("X-Real-IP", fakeIp);
 
                 int code = con.getResponseCode();
-                System.out.println("[" + agentName + "] DoS HTTP response code = " + code);
+                // System.out.println("[" + agentName + "] DoS HTTP response code = " + code);
                 con.getInputStream().close();
             } catch (Exception e) {
                 System.err.println("[" + myAgent.getLocalName() + "] Erro no DoS -> " + e.getMessage());

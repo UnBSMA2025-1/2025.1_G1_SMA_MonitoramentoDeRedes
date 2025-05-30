@@ -1,24 +1,17 @@
-package agentes;
+package core;
+
+import infra.MonitorGateway;
 
 import static spark.Spark.*;
 import java.util.Set;
 import java.util.concurrent.*;
-import jade.wrapper.AgentController;
-import jade.wrapper.ContainerController;
 
+import infra.MonitoringAPI;
 
-import java.util.UUID;
+import java.util.Optional;
 
 
 public class RequestRouter {
-    
-    private static ContainerController container;
-
-    public static void setContainer(ContainerController cc) {
-        container = cc;
-    }
-
-
     private static MonitorGateway monitor;
 
     private static final Set<String> blockedIps = ConcurrentHashMap.newKeySet();
@@ -31,12 +24,27 @@ public class RequestRouter {
 
     public static void blockIp(String ip) {
         blockedIps.add(ip);
-        System.out.println("[ROUTER] IP bloqueado: " + ip);
 
+        DataStore.getInstance().blockedIPs.add(ip);
+        DataStore.getInstance().logAlert("[ROUTER] IP bloqueado: " + ip);
+
+        System.out.println("[ROUTER] IP bloqueado: " + ip);
     }
 
     public static void startServer() {
         port(8080);
+        staticFiles.location("/public");
+        MonitoringAPI.init();
+            get("/", (req, res) -> {
+        String ip = Optional.ofNullable(req.headers("X-Real-IP")).orElse(req.ip());
+        if (blockedIps.contains(ip)) {
+            res.status(403);
+            return "Blocked";
+        }
+        if (monitor != null) monitor.receiveRequest(ip);
+        return "Request sent to MonitorAgent";
+    });
+
 
         post("/", (req, res) -> {
             String ip = req.headers("X-Real-IP");
@@ -61,11 +69,15 @@ public class RequestRouter {
             return "Request sent to MonitorAgent";
         });
 
+
         post("/reset", (req, res) -> {
             blockedIps.clear();
             return "Blocked IPs reset.";
         });
-    }
+        init();
+        awaitInitialization();
+        System.out.println("[ROUTER] HTTP server started on port 8080");
+        }
 
     public static void shutdown() {
         executor.shutdown();

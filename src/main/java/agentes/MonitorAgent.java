@@ -76,7 +76,6 @@ public class MonitorAgent extends Agent implements MonitorGateway {
             }
         });
     }
-    @Override
     public void receiveRequest(String ip) {
         node.registerRequest(ip);
     }

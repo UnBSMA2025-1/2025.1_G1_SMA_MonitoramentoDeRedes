@@ -23,9 +23,10 @@ import jade.core.behaviours.SimpleBehaviour;
 
 
 public class CreateAttackAgent extends Agent {
+
+    private static  int userName = 1;
     
 protected void setup() {
-    // Registro no DF
     DFAgentDescription dfd = new DFAgentDescription();
     dfd.setName(getAID());
     ServiceDescription sd = new ServiceDescription();
@@ -35,19 +36,16 @@ protected void setup() {
     try { DFService.register(this, dfd); }
     catch (FIPAException e) { e.printStackTrace(); }
 
-    // Template para mensagens REQUEST
     MessageTemplate mt = MessageTemplate.and(
         MessageTemplate.MatchProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST),
         MessageTemplate.MatchPerformative(ACLMessage.REQUEST)
     );
 
-    // Comportamento para responder requisições
     addBehaviour(new CyclicBehaviour(this) {
         public void action() {
             final ACLMessage msg = receive(mt);
             if (msg != null) {
                 System.out.println(getLocalName() + ": criando agente pedido.");
-                // Simula delay com WakerBehaviour (3s) antes de criar agente
                 addBehaviour(new WakerBehaviour(myAgent, 3000) {
                     protected void onWake() {
                         boolean sucesso = CreateAgent();
@@ -64,7 +62,6 @@ protected void setup() {
     });
 }
 
-// Ao morrer, desregistrar do DF
 protected void takeDown() {
     try {
         DFService.deregister(this);
@@ -75,10 +72,11 @@ protected void takeDown() {
 
     public boolean CreateAgent() {
         try {
-            String userName = UUID.randomUUID().toString().replace("-", "");
-            AgentController user = getContainerController().createNewAgent("ATTACK" + userName, "agentes.AttackAgent", null);
+            // String userName = UUID.randomUUID().toString().replace("-", "");
+            AgentController user = getContainerController().createNewAgent("ATTACK_" + userName, "agentes.AttackAgent", null);
             user.start();
-            System.out.println("[CreateAttackAgent] Agente Attack criado: ATTACK" + userName);
+            System.out.println("[CreateAttackAgent] Agente Attack criado: ATTACK_" + userName);
+            userName += 1;
             return true;
         } catch (Exception e) {
             e.printStackTrace();
