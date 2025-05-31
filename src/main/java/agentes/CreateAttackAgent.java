@@ -24,6 +24,9 @@ import jade.core.behaviours.SimpleBehaviour;
 
 public class CreateAttackAgent extends Agent {
     
+    private static  int userName = 1;
+
+
 protected void setup() {
     // Registro no DF
     DFAgentDescription dfd = new DFAgentDescription();
@@ -75,10 +78,11 @@ protected void takeDown() {
 
     public boolean CreateAgent() {
         try {
-            String userName = UUID.randomUUID().toString().replace("-", "");
-            AgentController user = getContainerController().createNewAgent("ATTACK" + userName, "agentes.AttackAgent", null);
+            // String userName = UUID.randomUUID().toString().replace("-", "");
+            AgentController user = getContainerController().createNewAgent("ATTACK_" + userName, "agentes.AttackAgent", null);
             user.start();
-            System.out.println("[CreateAttackAgent] Agente Attack criado: ATTACK" + userName);
+            System.out.println("[CreateAttackAgent] Agente Attack criado: ATTACK_" + userName);
+            userName += 1;
             return true;
         } catch (Exception e) {
             e.printStackTrace();
