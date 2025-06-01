@@ -6,101 +6,210 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
     <style>
+        /* Seu CSS existente está bom, vou adicionar/modificar algumas coisas */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f9ff;
+            background-color: #f0f2f5; /* Tom de cinza levemente azulado, mais suave */
             color: #333;
             margin: 0;
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh; /* Garante que o corpo ocupe pelo menos a altura da tela */
         }
+
+        h1 {
+            font-size: 2.2rem; /* Um pouco maior */
+            color: #172b4d; /* Azul mais escuro e corporativo */
+            margin-bottom: 25px; /* Ajuste */
+            text-align: center;
+            font-weight: 600;
+        }
+
         .dashboard-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); /* Ajuste minmax */
+            gap: 25px; /* Aumentar um pouco o espaçamento */
             width: 100%;
-            max-width: 1200px;
+            max-width: 1300px; /* Um pouco mais de largura máxima */
         }
+
         .panel {
             background-color: #ffffff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            min-height: 200px;
+            padding: 25px; /* Aumentar padding */
+            border-radius: 10px; /* Bordas mais arredondadas */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Sombra mais suave */
+            min-height: 220px; /* Ajuste */
+            display: flex; /* Para melhor controle do conteúdo interno */
+            flex-direction: column;
         }
+
         .panel h2 {
-            font-size: 1.4rem;
-            color: #1e3a8a;
+            font-size: 1.3rem; /* Ajuste de tamanho */
+            color: #0052cc; /* Azul mais vibrante para títulos de painel */
             margin-top: 0;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #dbeafe;
-            padding-bottom: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #dfe1e6; /* Linha divisória mais sutil */
+            padding-bottom: 12px;
+            font-weight: 600;
         }
-        ul, table {
-            list-style-type: none;
-            padding: 0;
+
+        /* Estilos para tabelas e listas */
+        table {
             width: 100%;
+            border-collapse: collapse; /* Remove espaços entre células */
         }
-        li, td, th {
-            padding: 8px;
-            border-bottom: 1px solid #eee;
+
+        thead th {
+            background-color: #f7f8f9; /* Fundo do cabeçalho da tabela */
+            color: #172b4d;
+            font-weight: 600; /* Cabeçalho em negrito */
+            padding: 12px 10px; /* Mais padding */
+            text-align: left;
+            font-size: 0.95rem;
+            border-bottom: 2px solid #dfe1e6;
+        }
+
+        tbody td {
+            padding: 10px; /* Padding nas células */
+            border-bottom: 1px solid #f0f2f5; /* Linha mais sutil */
             font-size: 0.9rem;
+            color: #42526e; /* Cor de texto mais suave */
         }
-        li:last-child, td:last-child {
+
+        tbody tr:last-child td {
             border-bottom: none;
         }
-        th {
-            text-align: left;
-            background-color: #f9fafb;
-            color: #1e3a8a;
+
+        tbody tr:hover {
+            background-color: #f7f8f9; /* Efeito hover nas linhas */
         }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1; /* Para que a lista ocupe o espaço disponível no painel */
+        }
+
+        ul li {
+            padding: 10px 5px; /* Ajuste de padding */
+            border-bottom: 1px solid #f0f2f5;
+            font-size: 0.9rem;
+            color: #42526e;
+            display: flex; /* Para alinhar itens na lista, se necessário */
+            justify-content: space-between;
+        }
+
+        ul li:last-child {
+            border-bottom: none;
+        }
+
         .timestamp {
             font-size: 0.8em;
-            color: #666;
+            color: #5e6c84; /* Cor do timestamp */
+            margin-left: 8px; /* Espaço à esquerda */
         }
+
         .log-entry {
-            padding: 6px 0;
-            border-bottom: 1px dotted #eee;
+            padding: 8px 5px; /* Ajuste de padding */
+            border-bottom: 1px dotted #e0e0e0; /* Linha pontilhada mais sutil */
+            font-size: 0.85rem;
+            color: #42526e;
+            line-height: 1.5;
         }
+        #system-logs { /* Para permitir scroll se muitos logs */
+            max-height: 300px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
         .log-entry:last-child {
             border-bottom: none;
         }
-        .status-ok { color: green; }
-        .status-blocked { color: red; font-weight: bold; }
-        .status-alert { color: orange; }
 
-        h1 {
-            font-size: 2rem;
-            color: #1e3a8a;
-            margin-bottom: 30px;
-            text-align: center;
-        }
+        /* Status Colors */
+        .status-ok { color: #00875a; /* Verde mais escuro */ }
+        .status-blocked { color: #de350b; font-weight: bold; /* Vermelho mais forte */ }
+        .status-alert { color: #ffab00; /* Laranja/Amarelo para alertas */ }
+        .status-info { color: #0052cc; /* Azul para informações gerais */ }
 
-        /* Estilo para o botão de reset */
+
+        /* Botão de Reset */
         .reset-button-container {
-            text-align: center;
-            margin-bottom: 20px;
+            display: flex; /* Alinhar botão e status na mesma linha */
+            flex-direction: column; /* Ou column se preferir um abaixo do outro */
+            align-items: center;
+            gap: 10px; /* Espaço entre botão e mensagem de status */
+            margin-bottom: 25px;
         }
 
         button#resetBlockedIps {
-            padding: 10px 20px;
-            background-color: #e53e3e; /* Cor vermelha para indicar perigo/reset */
+            padding: 12px 25px; /* Mais padding */
+            background-color: #de350b;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px; /* Bordas levemente mais arredondadas */
             font-size: 1rem;
+            font-weight: 600; /* Texto do botão em negrito */
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease;
         }
+
         button#resetBlockedIps:hover {
-            background-color: #c53030;
+            background-color: #bf2600; /* Vermelho mais escuro no hover */
+            transform: translateY(-1px); /* Leve efeito de elevação */
         }
+        button#resetBlockedIps:active {
+            transform: translateY(0px); /* Efeito de clique */
+        }
+
+
         #resetStatus {
-            margin-top: 10px;
+            margin-top: 5px; /* Ajuste de margem */
             font-size: 0.9rem;
+            color: #172b4d;
+            min-height: 1.2em; /* Para evitar que o layout pule quando o texto aparece */
         }
+
+        /* Indicador de Conexão WebSocket (NOVO) */
+        #ws-status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 1000;
+        }
+
+        .ws-connected {
+            background-color: #e3fcef;
+            color: #006644;
+            border: 1px solid #00875a;
+        }
+
+        .ws-disconnected {
+            background-color: #ffebe6;
+            color: #bf2600;
+            border: 1px solid #de350b;
+        }
+
+        /* Estilos para placeholders quando os painéis estão vazios */
+        .empty-state {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%; /* Ocupar toda a altura do painel */
+            color: #5e6c84;
+            font-style: italic;
+            padding: 20px;
+            text-align: center;
+        }
+
+
 
     </style>
 </head>
@@ -142,89 +251,180 @@
     </div>
 </div>
 
+<div id="ws-status">Conectando...</div>
+
 <script>
-    const API_BASE_URL = '/api'; // Ajuste se sua API estiver em outro prefixo
+        // Endereço do seu servidor WebSocket
+        // Certifique-se de que o caminho /ws ou similar está configurado no seu servidor Python
+        const WEBSOCKET_URL = `ws://${window.location.host}/ws`; // Assume que o servidor WS está no mesmo host e porta, caminho /ws
 
-    // Função para buscar e preencher dados de um endpoint
-    async function fetchData(endpoint, elementId, formatter) {
-        try {
-            const response = await fetch(`${API_BASE_URL}${endpoint}`);
-            if (!response.ok) {
-                throw new Error(`Erro HTTP: ${response.status}`);
-            }
-            const data = await response.json();
-            const element = document.getElementById(elementId);
-            element.innerHTML = formatter(data);
-        } catch (error) {
-            console.error(`Erro ao buscar dados de ${endpoint}:`, error);
-            const element = document.getElementById(elementId);
-            element.innerHTML = `<li class="status-alert">Erro ao carregar dados.</li>`;
-        }
-    }
+        const requestsPerIpBody = document.getElementById('requests-per-ip');
+        const blockedIpsList = document.getElementById('blocked-ips');
+        const recentRequestsList = document.getElementById('recent-requests');
+        const systemLogsDiv = document.getElementById('system-logs');
+        const wsStatusDiv = document.getElementById('ws-status');
+        const resetStatusDiv = document.getElementById('resetStatus');
 
-    // Formatadores para cada tipo de dado
-    function formatRequestsPerIp(data) {
+        function formatRequestsPerIp(data) {
         let html = '';
+        if (Object.keys(data).length === 0) {
+        return '<tr><td colspan="2"><div class="empty-state">Nenhuma requisição registrada.</div></td></tr>';
+    }
         for (const ip in data) {
-            html += `<tr><td>${ip}</td><td>${data[ip]}</td></tr>`;
-        }
-        if (html === '') return '<tr><td colspan="2">Nenhuma requisição registrada.</td></tr>';
+        html += `<tr><td>${ip}</td><td>${data[ip]}</td></tr>`;
+    }
         return html;
     }
 
-    function formatBlockedIps(data) {
-        if (data.length === 0) return '<li class="status-ok">Nenhum IP bloqueado.</li>';
+        function formatBlockedIps(data) {
+        if (!data || data.length === 0) {
+        return '<li><div class="empty-state">Nenhum IP bloqueado.</div></li>';
+    }
         return data.map(ip => `<li class="status-blocked">${ip}</li>`).join('');
     }
 
-    function formatRecentRequests(data) {
-        if (data.length === 0) return '<li>Nenhuma requisição recente.</li>';
-        return data.slice(0, 15).map(req => // Pega as últimas 15 para não sobrecarregar
-            `<li>${req.ip} <span class="timestamp">(${new Date(req.timestamp).toLocaleString()})</span></li>`
+        function formatRecentRequests(data) {
+        if (!data || data.length === 0) {
+        return '<li><div class="empty-state">Nenhuma requisição recente.</div></li>';
+    }
+        const displayLimit = 15;
+        return data.slice(-displayLimit).reverse().map(req => // Pega as últimas, inverte para a mais nova no topo
+        `<li><span>${req.ip}</span> <span class="timestamp">(${new Date(req.timestamp).toLocaleString()})</span></li>`
         ).join('');
     }
 
-    function formatSystemLogs(data) {
-        if (data.length === 0) return '<div class="log-entry">Nenhum log no sistema.</div>';
-        return data.slice(0, 20).map(log => // Pega os últimos 20 logs
-            `<div class="log-entry">${log.replace(/\[ROUTER\] IP bloqueado:/g, '<span class="status-blocked">[ROUTER] IP bloqueado:</span>')}</div>`
-        ).join('');
+        function formatSystemLogs(data) {
+        if (!data || data.length === 0) {
+        return '<div class="empty-state">Nenhum log no sistema.</div>';
+    }
+        // Limitar o número de logs exibidos no cliente
+        const displayLimit = 30;
+        // Adicionar os logs mais recentes no topo
+        return data.slice(-displayLimit).reverse().map(log => {
+        let logClass = 'status-info'; // Classe padrão
+        if (log.includes('IP bloqueado')) logClass = 'status-blocked';
+        if (log.includes('Erro') || log.includes('Falha')) logClass = 'status-alert';
+
+        // Regex para destacar o IP bloqueado com a classe
+        const formattedLog = log.replace(
+        /\[ROUTER\] IP bloqueado: ([\d.]+)/g,
+        '<span class="status-blocked">[ROUTER] IP bloqueado: $1</span>'
+        );
+        return `<div class="log-entry ${logClass}">${formattedLog}</div>`;
+    }).join('');
     }
 
-    // Função para resetar IPs bloqueados
-    async function resetBlockedIps() {
-        const statusDiv = document.getElementById('resetStatus');
+        // --- Lógica do WebSocket ---
+        let socket;
+
+        function connectWebSocket() {
+        socket = new WebSocket(WEBSOCKET_URL);
+
+        socket.onopen = function(event) {
+        console.log('WebSocket conectado!');
+        wsStatusDiv.textContent = 'Conectado';
+        wsStatusDiv.className = 'ws-connected';
+        // Você pode solicitar dados iniciais ao servidor aqui, se necessário
+        // socket.send(JSON.stringify({ type: 'getInitialData' }));
+    };
+
+        socket.onmessage = function(event) {
         try {
-            statusDiv.textContent = 'Resetando...';
-            const response = await fetch('/reset', { method: 'POST' });
-            const text = await response.text();
-            statusDiv.textContent = text;
-            // Atualiza a lista de IPs bloqueados após o reset
-            fetchData('/blocked', 'blocked-ips', formatBlockedIps);
-            fetchData('/logs', 'system-logs', formatSystemLogs); // Logs também podem mudar
-        } catch (error) {
-            console.error('Erro ao resetar IPs bloqueados:', error);
-            statusDiv.textContent = 'Erro ao resetar.';
-        }
+        const message = JSON.parse(event.data);
+        console.log('Mensagem recebida:', message);
+
+
+        switch (message.type) {
+        case 'stats':
+        case 'requests_per_ip': // Manter compatibilidade com o que você pode estar enviando
+        requestsPerIpBody.innerHTML = formatRequestsPerIp(message.payload);
+        break;
+        case 'blocked_ips':
+        blockedIpsList.innerHTML = formatBlockedIps(message.payload);
+        break;
+        case 'recent_requests':
+        recentRequestsList.innerHTML = formatRecentRequests(message.payload);
+        break;
+        case 'system_logs':
+        systemLogsDiv.innerHTML = formatSystemLogs(message.payload);
+        // Scroll para o final dos logs, se desejar ver os mais recentes primeiro (se não estiver usando reverse())
+        // systemLogsDiv.scrollTop = systemLogsDiv.scrollHeight;
+        break;
+        case 'all_data': // Se o servidor enviar todos os dados de uma vez
+        if (message.payload.stats) requestsPerIpBody.innerHTML = formatRequestsPerIp(message.payload.stats);
+        if (message.payload.blocked_ips) blockedIpsList.innerHTML = formatBlockedIps(message.payload.blocked_ips);
+        if (message.payload.recent_requests) recentRequestsList.innerHTML = formatRecentRequests(message.payload.recent_requests);
+        if (message.payload.system_logs) systemLogsDiv.innerHTML = formatSystemLogs(message.payload.system_logs);
+        break;
+        default:
+        console.warn('Tipo de mensagem desconhecida:', message.type);
+    }
+    } catch (error) {
+        console.error('Erro ao processar mensagem do WebSocket:', error, 'Dados:', event.data);
+    }
+    };
+
+        socket.onerror = function(error) {
+        console.error('Erro no WebSocket:', error);
+        wsStatusDiv.textContent = 'Erro de Conexão';
+        wsStatusDiv.className = 'ws-disconnected';
+    };
+
+        socket.onclose = function(event) {
+        console.log('WebSocket desconectado. Tentando reconectar em 3 segundos...');
+        wsStatusDiv.textContent = 'Desconectado. Reconectando...';
+        wsStatusDiv.className = 'ws-disconnected';
+        setTimeout(connectWebSocket, 3000); // Tenta reconectar após 3 segundos
+    };
     }
 
+        // --- Função para resetar IPs bloqueados (mantém o POST) ---
+        async function resetBlockedIps() {
+        resetStatusDiv.textContent = 'Resetando...';
+        resetStatusDiv.className = 'status-info'; // Usar classes de status
+        try {
+        // O endpoint /reset deve ser um POST
+        const response = await fetch('/reset', { method: 'POST' });
+        const text = await response.text(); // Ou response.json() se o servidor responder com JSON
 
-    // Carregar dados e configurar atualização periódica
-    function loadAllData() {
-        fetchData('/stats', 'requests-per-ip', formatRequestsPerIp);
-        fetchData('/blocked', 'blocked-ips', formatBlockedIps);
-        fetchData('/requests', 'recent-requests', formatRecentRequests);
-        fetchData('/logs', 'system-logs', formatSystemLogs);
+        if (response.ok) {
+        resetStatusDiv.textContent = `Sucesso: ${text}`;
+        resetStatusDiv.className = 'status-ok';
+        // Não precisa mais fazer fetch manual aqui.
+        // O servidor, ao processar /reset, deve enviar via WebSocket as atualizações
+        // para 'blocked_ips' e 'system_logs'.
+    } else {
+        resetStatusDiv.textContent = `Falha: ${text || response.statusText}`;
+        resetStatusDiv.className = 'status-alert';
     }
 
-    // Adiciona o event listener ao botão de reset
-    document.getElementById('resetBlockedIps').addEventListener('click', resetBlockedIps);
+    } catch (error) {
+        console.error('Erro ao resetar IPs bloqueados:', error);
+        resetStatusDiv.textContent = 'Erro crítico ao tentar resetar.';
+        resetStatusDiv.className = 'status-alert';
+    }
+        // Limpar a mensagem de status após alguns segundos
+        setTimeout(() => {
+        resetStatusDiv.textContent = '';
+        resetStatusDiv.className = '';
+    }, 5000);
+    }
 
-    // Carregar dados inicialmente
-    loadAllData();
+        // Adiciona o event listener ao botão de reset
+        document.getElementById('resetBlockedIps').addEventListener('click', resetBlockedIps);
 
-    // Atualizar a cada 5 segundos
-    setInterval(loadAllData, 5000);
+        // Iniciar a conexão WebSocket quando a página carregar
+        document.addEventListener('DOMContentLoaded', () => {
+        // Colocar placeholders iniciais
+        requestsPerIpBody.innerHTML = '<tr><td colspan="2"><div class="empty-state">Aguardando dados...</div></td></tr>';
+        blockedIpsList.innerHTML = '<li><div class="empty-state">Aguardando dados...</div></li>';
+        recentRequestsList.innerHTML = '<li><div class="empty-state">Aguardando dados...</div></li>';
+        systemLogsDiv.innerHTML = '<div class="empty-state">Aguardando dados...</div>';
+
+        connectWebSocket();
+    });
+
+</script>
 </script>
 </body>
 </html>

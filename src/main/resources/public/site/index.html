@@ -4,92 +4,273 @@
     <meta charset="UTF-8" />
     <title>Portal de Acesso</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <style>
-        body { font-family: 'Inter', sans-serif;
-            background: linear-gradient(to right, #dbeafe, #f0f9ff);
+        :root {
+            --primary-color: #2563eb;
+            --primary-color-dark: #1d4ed8;
+            --primary-color-light: #dbeafe;
+            --background-gradient-start: #e0e7ff;
+            --background-gradient-end: #f0f9ff;
+            --text-color-dark: #1e293b;
+            --text-color-light: #4b5563;
+            --border-color: #cbd5e1;
+            --white: #ffffff;
+            --success-color: #16a34a;
+            --error-color: #dc2626;
+            --font-family: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(120deg, var(--background-gradient-start), var(--background-gradient-end));
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
+            min-height: 100vh;
+            padding: 1rem;
         }
-        .container {
-            background-color: #ffffff;
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .login-box {
+            background-color: var(--white);
             padding: 2.5rem 3rem;
             border-radius: 1rem;
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-            max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 6px 10px rgba(0,0,0,0.06);
+            max-width: 420px;
             width: 100%;
             text-align: center;
+            animation: fadeIn 0.5s ease-out;
         }
-        h1 {
-            font-size: 1.75rem;
-            color: #1e3a8a;
-            margin-bottom: 1rem;
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        p {
-            font-size: 0.95rem;
-            color: #4b5563;
+
+        .login-box h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-color-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .login-box p {
+            font-size: 1rem;
+            color: var(--text-color-light);
             margin-bottom: 2rem;
         }
-        input {
+
+        .input-group {
+            margin-bottom: 1.25rem;
+            text-align: left;
+        }
+
+        .input-group input {
             width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid #d1d5db;
+            padding: 0.9rem 1rem;
+            border: 1px solid var(--border-color);
             border-radius: 0.5rem;
             font-size: 1rem;
-            transition: border 0.3s ease;
+            font-family: var(--font-family);
+            color: var(--text-color-dark);
+            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
         }
-        input:focus {
-            border-color: #2563eb;
+
+        .input-group input::placeholder {
+            color: #9ca3af;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
             outline: none;
         }
-        button {
+
+        button#submit-button {
             width: 100%;
-            padding: 0.8rem;
-            background-color: #2563eb;
-            color: #ffffff;
-            font-weight: 600;
+            padding: 0.9rem 1rem;
+            background-color: var(--primary-color);
+            color: var(--white);
+            font-weight: 500;
+            font-size: 1rem;
             border: none;
             border-radius: 0.5rem;
-            font-size: 1rem;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        button:hover {
-            background-color: #1d4ed8;
+
+        button#submit-button:hover {
+            background-color: var(--primary-color-dark);
         }
-        #response {
-            margin-top: 1rem;
+        button#submit-button:active {
+            transform: scale(0.98);
+        }
+
+        button#submit-button:disabled {
+            background-color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .response {
+            margin-top: 1.5rem;
             font-size: 0.9rem;
-            color: #1f2937;
+            min-height: 1.2em;
+            line-height: 1.4;
+        }
+
+        .response.success {
+            color: var(--success-color);
+        }
+
+        .response.error {
+            color: var(--error-color);
+            font-weight: 500;
+        }
+
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: var(--white);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-left: 8px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Portal de Acesso</h1>
-    <p>Insira suas credenciais para acessar o sistema.</p>
-    <form id="login-form"> <input type="text" name="username" placeholder="Usuário" required /> <input type="password" name="password" placeholder="Senha" required /> <button type="submit">Acessar</button> </form>
-    <div id="response"></div>
+<div class="login-container">
+    <div class="login-box">
+        <h1>Bem-vindo!</h1>
+        <p>Acesse sua conta para continuar.</p>
+        <form id="login-form">
+            <div class="input-group">
+                <input type="text" id="username" name="username" placeholder="Usuário" required aria-label="Nome de usuário"/>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" name="password" placeholder="Senha" required aria-label="Senha"/>
+            </div>
+            <button type="submit" id="submit-button">Acessar</button>
+        </form>
+        <div id="response-message" class="response" aria-live="polite"></div>
+    </div>
 </div>
-    <script>
-        document.getElementById("login-form").addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const username = e.target.username.value;
-            const password = e.target.password.value;
-            try { const res = await fetch("/", {
+
+<script>
+    const loginForm = document.getElementById("login-form");
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+    const submitButton = document.getElementById("submit-button");
+    const responseMessageDiv = document.getElementById("response-message");
+    const originalButtonText = submitButton.textContent;
+
+    loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (!username || !password) {
+            setResponseMessage("Por favor, preencha usuário e senha.", "error");
+            return;
+        }
+
+        setLoadingState(true);
+
+        try {
+            const response = await fetch("/", { // Seu endpoint de login
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, password }) });
-                const text = await res.text();
-                document.getElementById("response").textContent = text || "Requisição enviada com sucesso.";
-            } catch (err) {
-                document.getElementById("response").textContent = "Erro ao enviar requisição.";
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({username, password})
+            });
+
+            let responseBodyText = "";
+            try {
+                responseBodyText = await response.text();
+            } catch (textError) {
+                console.warn("Não foi possível ler o corpo da resposta como texto.", textError);
             }
-        });
-    </script>
+
+            if (response.ok) { // Se o login for bem-sucedido (status 2xx)
+                let data;
+                const contentType = response.headers.get("content-type");
+                if (contentType && contentType.includes("application/json")) {
+                    try {
+                        data = JSON.parse(responseBodyText);
+                    } catch (jsonError) {
+                        console.error("Erro ao parsear JSON da resposta:", jsonError);
+                        data = { message: "Login bem-sucedido, mas resposta inesperada." };
+                        setResponseMessage(data.message, "success");
+                    }
+                } else {
+                    data = {message: responseBodyText || "Login bem-sucedido!"};
+                }
+
+                setResponseMessage(data.message || "Login realizado com sucesso!", "success");
+                loginForm.reset();
+
+                setTimeout(() => {
+                    window.location.href = '/dashboard.html'; // OU data.redirectUrl se o servidor enviar
+                }, 1500);
+
+            } else { // Se o login falhar
+                let errorMessage = `Erro: ${response.status} ${response.statusText}`;
+                if (responseBodyText) {
+                    try {
+                        const errorData = JSON.parse(responseBodyText);
+                        errorMessage = errorData.message || errorData.error || responseBodyText;
+                    } catch (e) {
+                        errorMessage = responseBodyText;
+                    }
+                }
+                setResponseMessage(errorMessage, "error");
+                setLoadingState(false); // Reabilita o botão em caso de erro
+            }
+
+        } catch (networkError) { // Erro de rede (servidor fora, sem conexão)
+            console.error("Erro na requisição de login (rede):", networkError);
+            setResponseMessage("Não foi possível conectar ao servidor. Verifique sua conexão.", "error");
+            setLoadingState(false);
+        }
+    });
+
+    function setLoadingState(isLoading) {
+        if (isLoading) {
+            submitButton.disabled = true;
+            submitButton.innerHTML = `${originalButtonText} <span class="spinner"></span>`;
+        } else {
+            submitButton.disabled = false;
+            submitButton.innerHTML = originalButtonText;
+        }
+    }
+
+    function setResponseMessage(message, type = "info") {
+        responseMessageDiv.textContent = message;
+        responseMessageDiv.className = 'response'; 
+        if (type === 'success' || type === 'error') {
+            responseMessageDiv.classList.add(type);
+        }
+    }
+</script>
 </body>
 </html>
