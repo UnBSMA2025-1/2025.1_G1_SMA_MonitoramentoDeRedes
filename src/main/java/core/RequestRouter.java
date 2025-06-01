@@ -5,11 +5,25 @@ import infra.MonitorGateway;
 import static spark.Spark.*;
 import java.util.Set;
 import java.util.concurrent.*;
+import jade.wrapper.AgentController;
+import jade.wrapper.ContainerController;
+
+
+import java.util.UUID;
+
 import com.google.gson.Gson;
 
 import infra.MonitoringAPI;
 
 public class RequestRouter {
+    
+    private static ContainerController container;
+
+    public static void setContainer(ContainerController cc) {
+        container = cc;
+    }
+
+
     private static MonitorGateway monitor;
 
     private static final Set<String> blockedIps = ConcurrentHashMap.newKeySet();
