@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
     <style>
-        /* Seu CSS existente está bom, vou adicionar/modificar algumas coisas */
         body {
             font-family: 'Inter', sans-serif;
             background-color: #f0f2f5; /* Tom de cinza levemente azulado, mais suave */
@@ -119,7 +118,7 @@
             color: #42526e;
             line-height: 1.5;
         }
-        #system-logs { /* Para permitir scroll se muitos logs */
+        #system-logs { 
             max-height: 300px;
             overflow-y: auto;
             flex-grow: 1;
@@ -197,12 +196,12 @@
             border: 1px solid #de350b;
         }
 
-        /* Estilos para placeholders quando os painéis estão vazios */
+    
         .empty-state {
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%; /* Ocupar toda a altura do painel */
+            height: 100%;
             color: #5e6c84;
             font-style: italic;
             padding: 20px;
@@ -347,8 +346,6 @@
         break;
         case 'system_logs':
         systemLogsDiv.innerHTML = formatSystemLogs(message.payload);
-        // Scroll para o final dos logs, se desejar ver os mais recentes primeiro (se não estiver usando reverse())
-        // systemLogsDiv.scrollTop = systemLogsDiv.scrollHeight;
         break;
         case 'all_data': // Se o servidor enviar todos os dados de uma vez
         if (message.payload.stats) requestsPerIpBody.innerHTML = formatRequestsPerIp(message.payload.stats);
