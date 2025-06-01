@@ -295,7 +295,6 @@
         if (!data || data.length === 0) {
         return '<div class="empty-state">Nenhum log no sistema.</div>';
     }
-        // Limitar o número de logs exibidos no cliente
         const displayLimit = 30;
         // Adicionar os logs mais recentes no topo
         return data.slice(-displayLimit).reverse().map(log => {
@@ -303,7 +302,6 @@
         if (log.includes('IP bloqueado')) logClass = 'status-blocked';
         if (log.includes('Erro') || log.includes('Falha')) logClass = 'status-alert';
 
-        // Regex para destacar o IP bloqueado com a classe
         const formattedLog = log.replace(
         /\[ROUTER\] IP bloqueado: ([\d.]+)/g,
         '<span class="status-blocked">[ROUTER] IP bloqueado: $1</span>'
@@ -321,8 +319,6 @@
         console.log('WebSocket conectado!');
         wsStatusDiv.textContent = 'Conectado';
         wsStatusDiv.className = 'ws-connected';
-        // Você pode solicitar dados iniciais ao servidor aqui, se necessário
-        // socket.send(JSON.stringify({ type: 'getInitialData' }));
     };
 
         socket.onmessage = function(event) {
@@ -333,7 +329,7 @@
 
         switch (message.type) {
         case 'stats':
-        case 'requests_per_ip': // Manter compatibilidade com o que você pode estar enviando
+        case 'requests_per_ip': 
         requestsPerIpBody.innerHTML = formatRequestsPerIp(message.payload);
         break;
         case 'blocked_ips':
