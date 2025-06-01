@@ -36,9 +36,6 @@ public class RequestRouter {
 
     public static void blockIp(String ip) {
         blockedIps.add(ip);
-<<<<<<< HEAD:src/main/java/agentes/RequestRouter.java
-        System.out.println("[ROUTER] IP bloqueado: " + ip);
-=======
 
         //registra no DataStore
         DataStore.getInstance().blockedIPs.add(ip);
@@ -47,7 +44,6 @@ public class RequestRouter {
         String line = "[ROUTER] IP bloqueado: " + ip;
         System.out.println(line);
         LogStore.add(line);
->>>>>>> e6bef563287837860eaf215e8557622daa2a3157:src/main/java/core/RequestRouter.java
 
     }
 
