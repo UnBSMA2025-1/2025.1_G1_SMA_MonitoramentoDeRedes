@@ -1,16 +1,25 @@
 package agentes;
 
+import core.Node;
+import core.RequestRouter;
+import infra.MonitorGateway;
 import jade.core.Agent;
 import jade.core.behaviours.*;
 import jade.domain.DFService;
 import jade.domain.FIPAAgentManagement.*;
 import jade.domain.FIPAException;
-import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import java.util.Map;
+import java.time.Instant;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.ArrayList;
+import core.RequestRecord;
+
 
 public class MonitorAgent extends Agent implements MonitorGateway {
     private Node node;
+    private final List<RequestRecord> recentRequests = new LinkedList<>();
 
     protected void setup() {
         node = new Node();
@@ -77,5 +86,25 @@ public class MonitorAgent extends Agent implements MonitorGateway {
     @Override
     public void receiveRequest(String ip) {
         node.registerRequest(ip);
+
+        synchronized (recentRequests) {
+            recentRequests.add(new RequestRecord(ip, Instant.now()));
+            if (recentRequests.size() > 1000) {
+                recentRequests.remove(0);
+            }
+        }
     }
+
+    @Override
+    public Map<String, Integer> getRequestCountsPerIp() {
+        return node.getRequestSnapshot();
+    }
+
+    @Override
+    public List<RequestRecord> getRecentRequests() {
+        synchronized (recentRequests) {
+            return new ArrayList<>(recentRequests);
+        }
+    }
+
 }

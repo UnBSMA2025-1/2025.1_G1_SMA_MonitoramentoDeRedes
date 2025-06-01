@@ -1,4 +1,6 @@
-package agentes;
+package core;
+
+import infra.MonitorGateway;
 
 import static spark.Spark.*;
 import java.util.Set;
@@ -9,6 +11,9 @@ import jade.wrapper.ContainerController;
 
 import java.util.UUID;
 
+import com.google.gson.Gson;
+
+import infra.MonitoringAPI;
 
 public class RequestRouter {
     
@@ -31,12 +36,27 @@ public class RequestRouter {
 
     public static void blockIp(String ip) {
         blockedIps.add(ip);
+<<<<<<< HEAD:src/main/java/agentes/RequestRouter.java
         System.out.println("[ROUTER] IP bloqueado: " + ip);
+=======
+
+        //registra no DataStore
+        DataStore.getInstance().blockedIPs.add(ip);
+        DataStore.getInstance().logAlert("[ROUTER] IP bloqueado: " + ip);
+
+        String line = "[ROUTER] IP bloqueado: " + ip;
+        System.out.println(line);
+        LogStore.add(line);
+>>>>>>> e6bef563287837860eaf215e8557622daa2a3157:src/main/java/core/RequestRouter.java
 
     }
 
     public static void startServer() {
         port(8080);
+        staticFiles.location("/public");
+        MonitoringAPI.init();
+
+        Gson gson = new Gson();
 
         post("/", (req, res) -> {
             String ip = req.headers("X-Real-IP");
@@ -57,13 +77,42 @@ public class RequestRouter {
                     }
                 });
             }
-
             return "Request sent to MonitorAgent";
         });
 
+        get("/", (req, res) -> {
+            res.redirect("/site/index.html");
+            return null;
+        });
+        
+        get("/", (req, res) -> {
+            res.redirect("/site/dashboard.html");
+            return null;
+        });
+        
         post("/reset", (req, res) -> {
             blockedIps.clear();
             return "Blocked IPs reset.";
+        });
+
+        get("/api/stats", (req, res) -> {
+            res.type("application/json");
+            return gson.toJson(monitor.getRequestCountsPerIp());
+        });
+
+        get("/api/blocked", (req, res) -> {
+            res.type("application/json");
+            return gson.toJson(blockedIps);
+        });
+
+        get("/api/requests", (req, res) -> {
+            res.type("application/json");
+            return gson.toJson(monitor.getRecentRequests());
+        });
+
+        get("/api/logs", (req, res) -> {
+            res.type("application/json");
+            return gson.toJson(LogStore.getLastLogs());
         });
     }
 

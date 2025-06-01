@@ -1,4 +1,4 @@
-package agentes;
+package core;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +8,8 @@ public class Node {
 
     public synchronized void registerRequest(String ip) {
         requests.put(ip, requests.getOrDefault(ip, 0) + 1);
+        // Empurra para o DataStore
+        DataStore.getInstance().logRequest(ip);
     }
 
     public synchronized Map<String, Integer> getRequestSnapshot() {
