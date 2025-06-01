@@ -8,20 +8,20 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f2f5; /* Tom de cinza levemente azulado, mais suave */
+            background-color: #f0f2f5; 
             color: #333;
             margin: 0;
             padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh; /* Garante que o corpo ocupe pelo menos a altura da tela */
+            min-height: 100vh;
         }
 
         h1 {
-            font-size: 2.2rem; /* Um pouco maior */
-            color: #172b4d; /* Azul mais escuro e corporativo */
-            margin-bottom: 25px; /* Ajuste */
+            font-size: 2.2rem; 
+            color: #172b4d; 
+            margin-bottom: 25px; 
             text-align: center;
             font-weight: 600;
         }
@@ -29,52 +29,52 @@
         .dashboard-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); /* Ajuste minmax */
-            gap: 25px; /* Aumentar um pouco o espaçamento */
+            gap: 25px; 
             width: 100%;
-            max-width: 1300px; /* Um pouco mais de largura máxima */
+            max-width: 1300px; 
         }
 
         .panel {
             background-color: #ffffff;
-            padding: 25px; /* Aumentar padding */
-            border-radius: 10px; /* Bordas mais arredondadas */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); /* Sombra mais suave */
-            min-height: 220px; /* Ajuste */
-            display: flex; /* Para melhor controle do conteúdo interno */
+            padding: 25px; 
+            border-radius: 10px; 
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08); 
+            min-height: 220px; 
+            display: flex; 
             flex-direction: column;
         }
 
         .panel h2 {
-            font-size: 1.3rem; /* Ajuste de tamanho */
-            color: #0052cc; /* Azul mais vibrante para títulos de painel */
+            font-size: 1.3rem; 
+            color: #0052cc; 
             margin-top: 0;
             margin-bottom: 20px;
-            border-bottom: 2px solid #dfe1e6; /* Linha divisória mais sutil */
+            border-bottom: 2px solid #dfe1e6; 
             padding-bottom: 12px;
             font-weight: 600;
         }
 
-        /* Estilos para tabelas e listas */
+        
         table {
             width: 100%;
-            border-collapse: collapse; /* Remove espaços entre células */
+            border-collapse: collapse; 
         }
 
         thead th {
-            background-color: #f7f8f9; /* Fundo do cabeçalho da tabela */
+            background-color: #f7f8f9; 
             color: #172b4d;
-            font-weight: 600; /* Cabeçalho em negrito */
-            padding: 12px 10px; /* Mais padding */
+            font-weight: 600; 
+            padding: 12px 10px; 
             text-align: left;
             font-size: 0.95rem;
             border-bottom: 2px solid #dfe1e6;
         }
 
         tbody td {
-            padding: 10px; /* Padding nas células */
-            border-bottom: 1px solid #f0f2f5; /* Linha mais sutil */
+            padding: 10px; 
+            border-bottom: 1px solid #f0f2f5; 
             font-size: 0.9rem;
-            color: #42526e; /* Cor de texto mais suave */
+            color: #42526e; 
         }
 
         tbody tr:last-child td {
@@ -82,22 +82,22 @@
         }
 
         tbody tr:hover {
-            background-color: #f7f8f9; /* Efeito hover nas linhas */
+            background-color: #f7f8f9; 
         }
 
         ul {
             list-style-type: none;
             padding: 0;
             margin: 0;
-            flex-grow: 1; /* Para que a lista ocupe o espaço disponível no painel */
+            flex-grow: 1; 
         }
 
         ul li {
-            padding: 10px 5px; /* Ajuste de padding */
+            padding: 10px 5px; 
             border-bottom: 1px solid #f0f2f5;
             font-size: 0.9rem;
             color: #42526e;
-            display: flex; /* Para alinhar itens na lista, se necessário */
+            display: flex; 
             justify-content: space-between;
         }
 
@@ -107,13 +107,13 @@
 
         .timestamp {
             font-size: 0.8em;
-            color: #5e6c84; /* Cor do timestamp */
-            margin-left: 8px; /* Espaço à esquerda */
+            color: #5e6c84; 
+            margin-left: 8px; 
         }
 
         .log-entry {
-            padding: 8px 5px; /* Ajuste de padding */
-            border-bottom: 1px dotted #e0e0e0; /* Linha pontilhada mais sutil */
+            padding: 8px 5px; 
+            border-bottom: 1px dotted #e0e0e0; 
             font-size: 0.85rem;
             color: #42526e;
             line-height: 1.5;
@@ -129,50 +129,50 @@
         }
 
         /* Status Colors */
-        .status-ok { color: #00875a; /* Verde mais escuro */ }
-        .status-blocked { color: #de350b; font-weight: bold; /* Vermelho mais forte */ }
-        .status-alert { color: #ffab00; /* Laranja/Amarelo para alertas */ }
-        .status-info { color: #0052cc; /* Azul para informações gerais */ }
+        .status-ok { color: #00875a;  }
+        .status-blocked { color: #de350b; font-weight: bold;  }
+        .status-alert { color: #ffab00;  }
+        .status-info { color: #0052cc; }
 
 
         /* Botão de Reset */
         .reset-button-container {
-            display: flex; /* Alinhar botão e status na mesma linha */
-            flex-direction: column; /* Ou column se preferir um abaixo do outro */
+            display: flex; 
+            flex-direction: column; 
             align-items: center;
-            gap: 10px; /* Espaço entre botão e mensagem de status */
+            gap: 10px; 
             margin-bottom: 25px;
         }
 
         button#resetBlockedIps {
-            padding: 12px 25px; /* Mais padding */
+            padding: 12px 25px; 
             background-color: #de350b;
             color: white;
             border: none;
-            border-radius: 6px; /* Bordas levemente mais arredondadas */
+            border-radius: 6px; 
             font-size: 1rem;
-            font-weight: 600; /* Texto do botão em negrito */
+            font-weight: 600; 
             cursor: pointer;
             transition: background-color 0.2s ease-in-out, transform 0.1s ease;
         }
 
         button#resetBlockedIps:hover {
-            background-color: #bf2600; /* Vermelho mais escuro no hover */
-            transform: translateY(-1px); /* Leve efeito de elevação */
+            background-color: #bf2600; 
+            transform: translateY(-1px); 
         }
         button#resetBlockedIps:active {
-            transform: translateY(0px); /* Efeito de clique */
+            transform: translateY(0px); 
         }
 
 
         #resetStatus {
-            margin-top: 5px; /* Ajuste de margem */
+            margin-top: 5px; 
             font-size: 0.9rem;
             color: #172b4d;
-            min-height: 1.2em; /* Para evitar que o layout pule quando o texto aparece */
+            min-height: 1.2em; 
         }
 
-        /* Indicador de Conexão WebSocket (NOVO) */
+    
         #ws-status {
             position: fixed;
             top: 10px;
@@ -253,9 +253,8 @@
 <div id="ws-status">Conectando...</div>
 
 <script>
-        // Endereço do seu servidor WebSocket
-        // Certifique-se de que o caminho /ws ou similar está configurado no seu servidor Python
-        const WEBSOCKET_URL = `ws://${window.location.host}/ws`; // Assume que o servidor WS está no mesmo host e porta, caminho /ws
+        // Endereço do servidor WebSocket
+        const WEBSOCKET_URL = `ws://${window.location.host}/ws`; 
 
         const requestsPerIpBody = document.getElementById('requests-per-ip');
         const blockedIpsList = document.getElementById('blocked-ips');
@@ -313,7 +312,6 @@
     }).join('');
     }
 
-        // --- Lógica do WebSocket ---
         let socket;
 
         function connectWebSocket() {
@@ -347,7 +345,7 @@
         case 'system_logs':
         systemLogsDiv.innerHTML = formatSystemLogs(message.payload);
         break;
-        case 'all_data': // Se o servidor enviar todos os dados de uma vez
+        case 'all_data': 
         if (message.payload.stats) requestsPerIpBody.innerHTML = formatRequestsPerIp(message.payload.stats);
         if (message.payload.blocked_ips) blockedIpsList.innerHTML = formatBlockedIps(message.payload.blocked_ips);
         if (message.payload.recent_requests) recentRequestsList.innerHTML = formatRecentRequests(message.payload.recent_requests);
@@ -375,7 +373,7 @@
     };
     }
 
-        // --- Função para resetar IPs bloqueados (mantém o POST) ---
+        
         async function resetBlockedIps() {
         resetStatusDiv.textContent = 'Resetando...';
         resetStatusDiv.className = 'status-info'; // Usar classes de status
@@ -400,19 +398,17 @@
         resetStatusDiv.textContent = 'Erro crítico ao tentar resetar.';
         resetStatusDiv.className = 'status-alert';
     }
-        // Limpar a mensagem de status após alguns segundos
+        
         setTimeout(() => {
         resetStatusDiv.textContent = '';
         resetStatusDiv.className = '';
     }, 5000);
     }
 
-        // Adiciona o event listener ao botão de reset
+       
         document.getElementById('resetBlockedIps').addEventListener('click', resetBlockedIps);
 
-        // Iniciar a conexão WebSocket quando a página carregar
         document.addEventListener('DOMContentLoaded', () => {
-        // Colocar placeholders iniciais
         requestsPerIpBody.innerHTML = '<tr><td colspan="2"><div class="empty-state">Aguardando dados...</div></td></tr>';
         blockedIpsList.innerHTML = '<li><div class="empty-state">Aguardando dados...</div></li>';
         recentRequestsList.innerHTML = '<li><div class="empty-state">Aguardando dados...</div></li>';
