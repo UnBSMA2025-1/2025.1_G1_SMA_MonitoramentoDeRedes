@@ -1,4 +1,4 @@
-package agentes;
+package core;
 
 import java.util.LinkedList;
 import java.util.List;

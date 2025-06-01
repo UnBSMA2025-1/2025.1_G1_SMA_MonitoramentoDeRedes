@@ -1,6 +1,7 @@
-package agentes;
+package core;
 
 import java.time.Instant;
+import agentes.MonitorAgent;
 
 public class RequestRecord {
     private final String ip;

@@ -22,19 +22,15 @@ public class RequestRouter {
 
     public static void blockIp(String ip) {
         blockedIps.add(ip);
-<<<<<<< HEAD:src/main/java/core/RequestRouter.java
 
         //registra no DataStore
         DataStore.getInstance().blockedIPs.add(ip);
         DataStore.getInstance().logAlert("[ROUTER] IP bloqueado: " + ip);
 
-        System.out.println("[ROUTER] IP bloqueado: " + ip);
-=======
         String line = "[ROUTER] IP bloqueado: " + ip;
         System.out.println(line);
         LogStore.add(line);
 
->>>>>>> origin/feature/DashBoard:src/main/java/agentes/RequestRouter.java
     }
 
     public static void startServer() {
@@ -67,10 +63,15 @@ public class RequestRouter {
         });
 
         get("/", (req, res) -> {
+            res.redirect("/site/index.html");
+            return null;
+        });
+        
+        get("/", (req, res) -> {
             res.redirect("/site/dashboard.html");
             return null;
         });
-
+        
         post("/reset", (req, res) -> {
             blockedIps.clear();
             return "Blocked IPs reset.";

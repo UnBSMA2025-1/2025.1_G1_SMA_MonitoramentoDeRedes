@@ -14,7 +14,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.ArrayList;
-import agentes.RequestRecord;
+import core.RequestRecord;
 
 
 public class MonitorAgent extends Agent implements MonitorGateway {
