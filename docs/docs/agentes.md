@@ -47,7 +47,7 @@ No método `setup()`, o agente de ataque, assim como o `UserAgent`, gera um IP f
 Os comportamentos implementados no `setup` são:
 
 - **Comportamento Ticker `(TickerBehaviour)`** a cada 0.2 segundos `(200ms)`, que envia requisições à rota, tendo como header `X-Real-IP` para que possa ser corretamente simulado os IPs randomicamente gerados.
-- **Método `private String generateAttackIp()`** que gera um IP aleatório de 4 partes: `"10.0." + part3 (número gerado aleatoriamente) + "." + part4 (Idem part3)`. Esse método é diferente do `generateUserIp` para que, na situação de simulação, não ocorram casos onde sejam instaciados 2 agentes (`UserAgent` e `AttackAgent`) com o mesmo IP, mesmo que sejam mínimos.
+- **Método `private String generateAttackIp()`** que gera um IP aleatório de 4 partes: `"10.0." + part3 (número gerado aleatoriamente) + "." + part4 (Idem part3)`. Esse método é diferente do `generateUserIp` para que, na situação de simulação, não ocorram casos onde sejam instanciados 2 agentes (`UserAgent` e `AttackAgent`) com o mesmo IP, mesmo que sejam mínimos.
 
 ## `SupervisorAgent`
 O agente supervisor serve para supervisionar os agentes `MonitorAgent` e `MitigatorAgent` por meio de pings periódicos.
