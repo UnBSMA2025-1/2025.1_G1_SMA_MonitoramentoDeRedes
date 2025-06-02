@@ -4,92 +4,26 @@
     <meta charset="UTF-8" />
     <title>Portal de Acesso</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-    <style>
-        body { font-family: 'Inter', sans-serif;
-            background: linear-gradient(to right, #dbeafe, #f0f9ff);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background-color: #ffffff;
-            padding: 2.5rem 3rem;
-            border-radius: 1rem;
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
-        h1 {
-            font-size: 1.75rem;
-            color: #1e3a8a;
-            margin-bottom: 1rem;
-        }
-        p {
-            font-size: 0.95rem;
-            color: #4b5563;
-            margin-bottom: 2rem;
-        }
-        input {
-            width: 100%;
-            padding: 0.75rem;
-            margin-bottom: 1rem;
-            border: 1px solid #d1d5db;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            transition: border 0.3s ease;
-        }
-        input:focus {
-            border-color: #2563eb;
-            outline: none;
-        }
-        button {
-            width: 100%;
-            padding: 0.8rem;
-            background-color: #2563eb;
-            color: #ffffff;
-            font-weight: 600;
-            border: none;
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #1d4ed8;
-        }
-        #response {
-            margin-top: 1rem;
-            font-size: 0.9rem;
-            color: #1f2937;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="static/index.css" rel="stylesheet" />
 </head>
 <body>
-<div class="container">
-    <h1>Portal de Acesso</h1>
-    <p>Insira suas credenciais para acessar o sistema.</p>
-    <form id="login-form"> <input type="text" name="username" placeholder="Usuário" required /> <input type="password" name="password" placeholder="Senha" required /> <button type="submit">Acessar</button> </form>
-    <div id="response"></div>
+<div class="login-container">
+    <div class="login-box">
+        <h1>Bem-vindo!</h1>
+        <p>Acesse sua conta para continuar.</p>
+        <form id="login-form">
+            <div class="input-group">
+                <input type="text" id="username" name="username" placeholder="Usuário" required aria-label="Nome de usuário"/>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" name="password" placeholder="Senha" required aria-label="Senha"/>
+            </div>
+            <button type="submit" id="submit-button">Acessar</button>
+        </form>
+        <div id="response-message" class="response" aria-live="polite"></div>
+    </div>
 </div>
-    <script>
-        document.getElementById("login-form").addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const username = e.target.username.value;
-            const password = e.target.password.value;
-            try { const res = await fetch("/", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username, password }) });
-                const text = await res.text();
-                document.getElementById("response").textContent = text || "Requisição enviada com sucesso.";
-            } catch (err) {
-                document.getElementById("response").textContent = "Erro ao enviar requisição.";
-            }
-        });
-    </script>
+<script src="static/index.js"></script>
 </body>
 </html>
