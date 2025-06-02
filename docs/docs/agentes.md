@@ -6,6 +6,8 @@ No sistema, os agentes são divididos da seguinte forma:
 - `UserAgent`: Simula as requisições de um usuário normal;
 - `AttackAgent`: Simula um ataque DoS na rede;
 - `SupervisorAgent`: Supervisiona os agentes `MonitorAgent` e `MitigatorAgent`, de forma que garanta que sempre estarão funcionais.
+- `CreateAttackAgent`: Gerencia a criação de novos agentes de ataque sempre que um AttackAgent é derrubado.
+
 
 ## `MonitorAgent`
 O agente monitor é responsável pelo monitoramento de todas as requisições enviadas em dada rota por meio de uma interface `MonitorGateway` que permite que ele possa recebê-las. 
