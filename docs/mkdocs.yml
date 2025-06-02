@@ -1,0 +1,17 @@
+site_name: Sistema Multiagentes Anti-DoS
+theme:
+  name: material
+
+docs_dir: docs/
+
+nav:
+  - Início: index.md
+  - Visão Geral: overview.md
+  - Arquitetura dos Agentes: agentes.md
+  - Roteamento HTTP: rotas.md
+  - Relatórios: relatorios.md
+  - Execução: execucao.md
+  - Estrutura de Pastas: estrutura.md
+
+site_url: https://UnBSMA2025-1.github.io/2025.1_G1_SMA_MonitoramentoDeRedes/
+

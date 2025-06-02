@@ -4,14 +4,15 @@
 **Frente de Pesquisa**: Monitoramento e Mitigação de Ataques DoS com Sistemas Multiagentes<br>
 
 ## Alunos
-| Matrícula  | Aluno                   |
-|------------|-------------------------|
-| 24/1025480 | Yan Rodrigues           |
-| 24/1025523 | Gabriel Alves de Araujo |
-| 24/10XXXXX | XX XXXX XXXX XXXX       |
-| 24/10XXXXX | XX XXXX XXXX XXXX       |
-| 24/10XXXXX | XX XXXX XXXX XXXX       |
-| 24/10XXXXX | XX XXXX XXXX XXXX       |
+| Matrícula  | Aluno                        |
+|------------|------------------------------|
+| 24/1025480 | Yan Rodrigues                |
+| 24/1025523 | Gabriel Alves de Araujo      |
+| 24/1025855 | Rodrigo Àtila                |
+| 24/1025336 | Matheus Pinheiro             |
+| 24/1025837 | Pedro Ian Guedes de Carvalho |
+| 24/1025971 | Paulo victor                 |
+
 ## Sobre
 
 Este projeto simula agentes que monitoram rotas HTTP e verificam e bloqueiam possíveis ataques DOS. Caso a rota esteja sob ataque de
