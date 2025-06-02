@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Dashboard de Monitoramento de Rede</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="static/dashboard.css" rel="stylesheet" />
+
+        
+</head>
+<body>
+<h1>Dashboard de Monitoramento de Rede</h1>
+
+<div class="reset-button-container">
+    <button id="resetBlockedIps">Resetar IPs Bloqueados</button>
+    <div id="resetStatus"></div>
+</div>
+
+<div class="dashboard-container">
+    <div class="panel">
+        <h2>📊 Requisições por IP</h2>
+        <table id="requests-per-ip-table">
+            <thead>
+            <tr>
+                <th>IP</th>
+                <th>Contagem</th>
+            </tr>
+            </thead>
+            <tbody id="requests-per-ip"></tbody>
+        </table>
+    </div>
+
+    <div class="panel">
+        <h2>🚫 IPs Bloqueados</h2>
+        <ul id="blocked-ips"></ul>
+    </div>
+
+    <div class="panel">
+        <h2>📡 Requisições Recentes</h2>
+        <ul id="recent-requests"></ul>
+    </div>
+
+    <div class="panel">
+        <h2>📜 Logs do Sistema</h2>
+        <div id="system-logs"></div>
+    </div>
+</div>
+
+<div id="ws-status">Conectando...</div>
+
+<script src="static/dashboard.js"></script>
+</body>
+</html>

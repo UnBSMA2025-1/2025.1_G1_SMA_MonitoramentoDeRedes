@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <title>Portal de Acesso</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="static/index.css" rel="stylesheet" />
+</head>
+<body>
+<div class="login-container">
+    <div class="login-box">
+        <h1>Bem-vindo!</h1>
+        <p>Acesse sua conta para continuar.</p>
+        <form id="login-form">
+            <div class="input-group">
+                <input type="text" id="username" name="username" placeholder="Usuário" required aria-label="Nome de usuário"/>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" name="password" placeholder="Senha" required aria-label="Senha"/>
+            </div>
+            <button type="submit" id="submit-button">Acessar</button>
+        </form>
+        <div id="response-message" class="response" aria-live="polite"></div>
+    </div>
+</div>
+<script src="static/index.js"></script>
+</body>
+</html>
