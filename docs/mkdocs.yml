@@ -2,6 +2,8 @@ site_name: Sistema Multiagentes Anti-DoS
 theme:
   name: material
 
+docs_dir: docs/
+
 nav:
   - Início: index.md
   - Visão Geral: overview.md
