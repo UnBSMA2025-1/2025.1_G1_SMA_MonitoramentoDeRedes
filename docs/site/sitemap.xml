@@ -1,3 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://UnBSMA2025-1.github.io/2025.1_G1_SMA_MonitoramentoDeRedes/</loc>
+         <lastmod>2025-06-02</lastmod>
+    </url>
+    <url>
+         <loc>https://UnBSMA2025-1.github.io/2025.1_G1_SMA_MonitoramentoDeRedes/agentes/</loc>
+         <lastmod>2025-06-02</lastmod>
+    </url>
+    <url>
+         <loc>https://UnBSMA2025-1.github.io/2025.1_G1_SMA_MonitoramentoDeRedes/overview/</loc>
+         <lastmod>2025-06-02</lastmod>
+    </url>
+    <url>
+         <loc>https://UnBSMA2025-1.github.io/2025.1_G1_SMA_MonitoramentoDeRedes/rotas/</loc>
+         <lastmod>2025-06-02</lastmod>
+    </url>
 </urlset>
