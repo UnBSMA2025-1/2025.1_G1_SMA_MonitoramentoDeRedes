@@ -1,22 +1,43 @@
 package core;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger; 
 
 public class Node {
-    private final Map<String, Integer> requests = new HashMap<>();
+    private final Map<String, Deque<Long>> requestTimestamps = new ConcurrentHashMap<>();
+    private static final long WINDOW_MS = 5000; 
 
-    public synchronized void registerRequest(String ip) {
-        requests.put(ip, requests.getOrDefault(ip, 0) + 1);
-        // Empurra para o DataStore
-        DataStore.getInstance().logRequest(ip);
+    public void registerRequest(String ip) {
+        long now = System.currentTimeMillis();
+        requestTimestamps.computeIfAbsent(ip, k -> new ConcurrentLinkedDeque<>());
+        
+        Deque<Long> timestamps = requestTimestamps.get(ip);
+        timestamps.add(now);
+        
+        // Remover registros fora da janela
+        while (!timestamps.isEmpty() && now - timestamps.peekFirst() > WINDOW_MS) {
+            timestamps.pollFirst();
+        }
     }
 
-    public synchronized Map<String, Integer> getRequestSnapshot() {
-        return new HashMap<>(requests);
+    public int getRequestCount(String ip) {
+        Deque<Long> timestamps = requestTimestamps.get(ip);
+        return timestamps != null ? timestamps.size() : 0;
     }
 
-    public synchronized void resetRequests() {
-        requests.clear();
+    public Map<String, Integer> getRequestSnapshot() {
+        Map<String, Integer> snapshot = new HashMap<>();
+        long now = System.currentTimeMillis();
+        
+        requestTimestamps.forEach((ip, timestamps) -> {
+            // Limpar registros antigos
+            while (!timestamps.isEmpty() && now - timestamps.peekFirst() > WINDOW_MS) {
+                timestamps.pollFirst();
+            }
+            snapshot.put(ip, timestamps.size());
+        });
+        
+        return snapshot;
     }
 }

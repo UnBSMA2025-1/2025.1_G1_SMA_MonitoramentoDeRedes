@@ -37,6 +37,11 @@ public class MitigatorAgent extends Agent {
                     String ip = msg.getContent();
                     System.out.println("[MITIGATOR] Bloqueando IP: " + ip);
                     RequestRouter.blockIp(ip);
+                }
+                else if (msg != null && msg.getContent().startsWith("ATTACK:")) {
+                    String ip = msg.getContent().split(":")[1];
+                    System.out.println("[MITIGATOR] Bloqueio proativo para: " + ip);
+                    RequestRouter.blockIp(ip);
                 } else if (msg != null && msg.getContent().equals("ping-mitigator")) {
                     ACLMessage reply = msg.createReply();
                     reply.setContent("pong-mitigator");

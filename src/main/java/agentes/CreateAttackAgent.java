@@ -72,7 +72,6 @@ protected void takeDown() {
 
     public boolean CreateAgent() {
         try {
-            // String userName = UUID.randomUUID().toString().replace("-", "");
             AgentController user = getContainerController().createNewAgent("ATTACK_" + userName, "agentes.AttackAgent", null);
             user.start();
             System.out.println("[CreateAttackAgent] Agente Attack criado: ATTACK_" + userName);
