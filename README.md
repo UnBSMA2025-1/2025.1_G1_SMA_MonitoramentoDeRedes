@@ -57,13 +57,13 @@ Além disso, há uma resistência a falhas, pois caso um agente crítico pare de
 ## 🛠️ Pré-requisitos
 
 - Java 8+
-- Apache Mave
+- Apache Maven
 
 ## Screenshots (TODO)
 
 ## Instalação 
 **Linguagens**: Java 8+ e Shell Script (para scripts auxiliares)<br>
-**Tecnologias**: Maven e JADE<br>
+**Tecnologias**: Maven e JADE v4.5.0<br>
 
 ## 🔧 Como rodar
 
@@ -98,12 +98,12 @@ chmod +x run.sh
 ./run.sh # ou
 sh run.sh
 ```
-Então, o Maven deve cuidar de todo o resto do processo. <br>
+Então, o Maven deve cuidar de todo o resto do processo de build e o sistema será iniciado. <br>
 
 ## Uso 
-Explique como usar seu projeto.
-Procure ilustrar em passos, com apoio de telas do software, seja com base na interface gráfica, seja com base no terminal.
-Nessa seção, deve-se revelar de forma clara sobre o funcionamento do software.
+Para utilizar o sistema, basta rodá-lo e acessar o link para o dashboard. Nele, encontramos informações sobre IPs bloqueados, requisições feitas por IPs, e o log dos agentes. <br>
+Mais informações sobre como funciona o projeto e os agentes estão presentes [aqui]().
+
 
 ## Vídeo
 Adicione 1 ou mais vídeos com a execução do projeto.
@@ -122,14 +122,25 @@ Apresente, brevemente, como cada membro do grupo contribuiu para o projeto.
 | Fulano  |  Programação dos Fatos da Base de Conhecimento Lógica | Boa | Commit tal (com link)
 
 ## Outros 
-Quaisquer outras informações sobre o projeto podem ser descritas aqui. Não esqueça, entretanto, de informar sobre:
+Este projeto é escalável, pois permite que sejam adicionadas outras rotas para que sejam monitoradas. É necessário apenas poucas linhas de código para acoplar o `MonitorAgent` ao roteador.
+
 ### Lições Aprendidas
+Nesse projeto, aprendemos muito sobre o paradigma de Multiagentes, e suas aplicações em aplicativos que podem ser utilizados na vida real, fora de simulações. Também, pudemos aprender como gerenciar os recursos do sistema de forma a priorizar a performance, pois os agentes acabam tornando-se muito pesados para a máquina.
+- Paradigma de Sistemas Multiagentes
+- 
+
 ### Percepções
+- 
 ### Fragilidades do Sistema
+- Não reconhece outras formas de ataque fora o DoS e DDoS. 
 - Por limitações do JADE, o sistema não convém com os protocolos FIPA (FIPA Contract Net Interaction), pois ele não permite que sejam feitas muitas Calls for Proposal (CFP) simultaneamente para vários destinatários;
 - Percebe-se que o JADE possui algumas ressalvas quanto à perfomance, podendo afetar a robustez do servidor.
-  Foram tomadas algumas medidas para evitar isso, como por exemplo a utilização de `ConcurrentHashMap`, que é thread-safe, e `ExecutorService` para rodar o recebimento de requisições do
-  `MonitorAgent` de forma assíncrona, `FixedThreadPool()` para limitar a concorrência e evitar a sobrecarga nas rotas, etc...
+  Foram tomadas algumas medidas para evitar isso, como por exemplo a utilização de `ConcurrentHashMap`, que é thread-safe, e `ExecutorService` para rodar o recebimento de requisições do `MonitorAgent` de forma assíncrona, `FixedThreadPool()` para limitar a concorrência e evitar a sobrecarga nas rotas, etc...
+- Também, foi vísivel alguns comportamentos emergentes no `SupervisorAgent`. Esses comportamentos se dão pelo fato de as mensagens serem enviadas no meio de alguma outra tarefa que o agente destinatário estava executando, fazendo com que ele interprete incorretamente que o agente está morto, e reinicia-o.
+
+### Trabalhos Futuros
+- Implementação dos agentes baseados no OWASP Top 10, de forma a reconhecer diferentes formas de ataque.
+- Melhorar a robustez geral do sistema, para conseguir suportar diversos ataques simultâneos no mesmo sistema.
 
 ## Fontes
 Referencie, adequadamente, as referências utilizadas.
