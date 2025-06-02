@@ -253,167 +253,89 @@
 <div id="ws-status">Conectando...</div>
 
 <script>
-        // Endereço do servidor WebSocket
-        const WEBSOCKET_URL = `ws://${window.location.host}/ws`; 
+   
+   const API_BASE_URL = '/api'; // Ajuste se sua API estiver em outro prefixo
 
-        const requestsPerIpBody = document.getElementById('requests-per-ip');
-        const blockedIpsList = document.getElementById('blocked-ips');
-        const recentRequestsList = document.getElementById('recent-requests');
-        const systemLogsDiv = document.getElementById('system-logs');
-        const wsStatusDiv = document.getElementById('ws-status');
-        const resetStatusDiv = document.getElementById('resetStatus');
-
-        function formatRequestsPerIp(data) {
-        let html = '';
-        if (Object.keys(data).length === 0) {
-        return '<tr><td colspan="2"><div class="empty-state">Nenhuma requisição registrada.</div></td></tr>';
+// Função para buscar e preencher dados de um endpoint
+async function fetchData(endpoint, elementId, formatter) {
+    try {
+        const response = await fetch(`${API_BASE_URL}${endpoint}`);
+        if (!response.ok) {
+            throw new Error(`Erro HTTP: ${response.status}`);
+        }
+        const data = await response.json();
+        const element = document.getElementById(elementId);
+        element.innerHTML = formatter(data);
+    } catch (error) {
+        console.error(`Erro ao buscar dados de ${endpoint}:`, error);
+        const element = document.getElementById(elementId);
+        element.innerHTML = `<li class="status-alert">Erro ao carregar dados.</li>`;
     }
-        for (const ip in data) {
+}
+
+// Formatadores para cada tipo de dado
+function formatRequestsPerIp(data) {
+    let html = '';
+    for (const ip in data) {
         html += `<tr><td>${ip}</td><td>${data[ip]}</td></tr>`;
     }
-        return html;
-    }
+    if (html === '') return '<tr><td colspan="2">Nenhuma requisição registrada.</td></tr>';
+    return html;
+}
 
-        function formatBlockedIps(data) {
-        if (!data || data.length === 0) {
-        return '<li><div class="empty-state">Nenhum IP bloqueado.</div></li>';
-    }
-        return data.map(ip => `<li class="status-blocked">${ip}</li>`).join('');
-    }
+function formatBlockedIps(data) {
+    if (data.length === 0) return '<li class="status-ok">Nenhum IP bloqueado.</li>';
+    return data.map(ip => `<li class="status-blocked">${ip}</li>`).join('');
+}
 
-        function formatRecentRequests(data) {
-        if (!data || data.length === 0) {
-        return '<li><div class="empty-state">Nenhuma requisição recente.</div></li>';
-    }
-        const displayLimit = 15;
-        return data.slice(-displayLimit).reverse().map(req => // Pega as últimas, inverte para a mais nova no topo
-        `<li><span>${req.ip}</span> <span class="timestamp">(${new Date(req.timestamp).toLocaleString()})</span></li>`
-        ).join('');
-    }
+function formatRecentRequests(data) {
+    if (data.length === 0) return '<li>Nenhuma requisição recente.</li>';
+    return data.slice(0, 15).map(req => // Pega as últimas 15 para não sobrecarregar
+        `<li>${req.ip} <span class="timestamp">(${new Date(req.timestamp).toLocaleString()})</span></li>`
+    ).join('');
+}
 
-        function formatSystemLogs(data) {
-        if (!data || data.length === 0) {
-        return '<div class="empty-state">Nenhum log no sistema.</div>';
-    }
-        const displayLimit = 30;
-        // Adicionar os logs mais recentes no topo
-        return data.slice(-displayLimit).reverse().map(log => {
-        let logClass = 'status-info'; // Classe padrão
-        if (log.includes('IP bloqueado')) logClass = 'status-blocked';
-        if (log.includes('Erro') || log.includes('Falha')) logClass = 'status-alert';
+function formatSystemLogs(data) {
+    if (data.length === 0) return '<div class="log-entry">Nenhum log no sistema.</div>';
+    return data.slice(0, 20).map(log => // Pega os últimos 20 logs
+        `<div class="log-entry">${log.replace(/\[ROUTER\] IP bloqueado:/g, '<span class="status-blocked">[ROUTER] IP bloqueado:</span>')}</div>`
+    ).join('');
+}
 
-        const formattedLog = log.replace(
-        /\[ROUTER\] IP bloqueado: ([\d.]+)/g,
-        '<span class="status-blocked">[ROUTER] IP bloqueado: $1</span>'
-        );
-        return `<div class="log-entry ${logClass}">${formattedLog}</div>`;
-    }).join('');
-    }
-
-        let socket;
-
-        function connectWebSocket() {
-        socket = new WebSocket(WEBSOCKET_URL);
-
-        socket.onopen = function(event) {
-        console.log('WebSocket conectado!');
-        wsStatusDiv.textContent = 'Conectado';
-        wsStatusDiv.className = 'ws-connected';
-    };
-
-        socket.onmessage = function(event) {
-        try {
-        const message = JSON.parse(event.data);
-        console.log('Mensagem recebida:', message);
-
-
-        switch (message.type) {
-        case 'stats':
-        case 'requests_per_ip': 
-        requestsPerIpBody.innerHTML = formatRequestsPerIp(message.payload);
-        break;
-        case 'blocked_ips':
-        blockedIpsList.innerHTML = formatBlockedIps(message.payload);
-        break;
-        case 'recent_requests':
-        recentRequestsList.innerHTML = formatRecentRequests(message.payload);
-        break;
-        case 'system_logs':
-        systemLogsDiv.innerHTML = formatSystemLogs(message.payload);
-        break;
-        case 'all_data': 
-        if (message.payload.stats) requestsPerIpBody.innerHTML = formatRequestsPerIp(message.payload.stats);
-        if (message.payload.blocked_ips) blockedIpsList.innerHTML = formatBlockedIps(message.payload.blocked_ips);
-        if (message.payload.recent_requests) recentRequestsList.innerHTML = formatRecentRequests(message.payload.recent_requests);
-        if (message.payload.system_logs) systemLogsDiv.innerHTML = formatSystemLogs(message.payload.system_logs);
-        break;
-        default:
-        console.warn('Tipo de mensagem desconhecida:', message.type);
-    }
-    } catch (error) {
-        console.error('Erro ao processar mensagem do WebSocket:', error, 'Dados:', event.data);
-    }
-    };
-
-        socket.onerror = function(error) {
-        console.error('Erro no WebSocket:', error);
-        wsStatusDiv.textContent = 'Erro de Conexão';
-        wsStatusDiv.className = 'ws-disconnected';
-    };
-
-        socket.onclose = function(event) {
-        console.log('WebSocket desconectado. Tentando reconectar em 3 segundos...');
-        wsStatusDiv.textContent = 'Desconectado. Reconectando...';
-        wsStatusDiv.className = 'ws-disconnected';
-        setTimeout(connectWebSocket, 3000); // Tenta reconectar após 3 segundos
-    };
-    }
-
-        
-        async function resetBlockedIps() {
-        resetStatusDiv.textContent = 'Resetando...';
-        resetStatusDiv.className = 'status-info'; // Usar classes de status
-        try {
-        // O endpoint /reset deve ser um POST
+// Função para resetar IPs bloqueados
+async function resetBlockedIps() {
+    const statusDiv = document.getElementById('resetStatus');
+    try {
+        statusDiv.textContent = 'Resetando...';
         const response = await fetch('/reset', { method: 'POST' });
-        const text = await response.text(); // Ou response.json() se o servidor responder com JSON
-
-        if (response.ok) {
-        resetStatusDiv.textContent = `Sucesso: ${text}`;
-        resetStatusDiv.className = 'status-ok';
-        // Não precisa mais fazer fetch manual aqui.
-        // O servidor, ao processar /reset, deve enviar via WebSocket as atualizações
-        // para 'blocked_ips' e 'system_logs'.
-    } else {
-        resetStatusDiv.textContent = `Falha: ${text || response.statusText}`;
-        resetStatusDiv.className = 'status-alert';
-    }
-
+        const text = await response.text();
+        statusDiv.textContent = text;
+        // Atualiza a lista de IPs bloqueados após o reset
+        fetchData('/blocked', 'blocked-ips', formatBlockedIps);
+        fetchData('/logs', 'system-logs', formatSystemLogs); // Logs também podem mudar
     } catch (error) {
         console.error('Erro ao resetar IPs bloqueados:', error);
-        resetStatusDiv.textContent = 'Erro crítico ao tentar resetar.';
-        resetStatusDiv.className = 'status-alert';
+        statusDiv.textContent = 'Erro ao resetar.';
     }
-        
-        setTimeout(() => {
-        resetStatusDiv.textContent = '';
-        resetStatusDiv.className = '';
-    }, 5000);
-    }
+}
 
-       
-        document.getElementById('resetBlockedIps').addEventListener('click', resetBlockedIps);
 
-        document.addEventListener('DOMContentLoaded', () => {
-        requestsPerIpBody.innerHTML = '<tr><td colspan="2"><div class="empty-state">Aguardando dados...</div></td></tr>';
-        blockedIpsList.innerHTML = '<li><div class="empty-state">Aguardando dados...</div></li>';
-        recentRequestsList.innerHTML = '<li><div class="empty-state">Aguardando dados...</div></li>';
-        systemLogsDiv.innerHTML = '<div class="empty-state">Aguardando dados...</div>';
+// Carregar dados e configurar atualização periódica
+function loadAllData() {
+    fetchData('/stats', 'requests-per-ip', formatRequestsPerIp);
+    fetchData('/blocked', 'blocked-ips', formatBlockedIps);
+    fetchData('/requests', 'recent-requests', formatRecentRequests);
+    fetchData('/logs', 'system-logs', formatSystemLogs);
+}
 
-        connectWebSocket();
-    });
+// Adiciona o event listener ao botão de reset
+document.getElementById('resetBlockedIps').addEventListener('click', resetBlockedIps);
 
-</script>
+// Carregar dados inicialmente
+loadAllData();
+
+// Atualizar a cada 5 segundos
+setInterval(loadAllData, 5000);
 </script>
 </body>
 </html>
