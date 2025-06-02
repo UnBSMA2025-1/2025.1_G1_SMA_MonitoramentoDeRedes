@@ -51,7 +51,7 @@
                 loginForm.reset();
 
                 setTimeout(() => {
-                    window.location.href = '/dashboard.html'; // OU data.redirectUrl se o servidor enviar
+                    window.location.href = '/site/dashboard.html'; // OU data.redirectUrl se o servidor enviar
                 }, 1500);
 
             } else { // Se o login falhar
