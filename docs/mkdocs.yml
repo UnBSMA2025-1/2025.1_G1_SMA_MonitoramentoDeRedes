@@ -1,8 +1,17 @@
 site_name: Sistema Multiagentes Anti-DoS
 theme:
   name: material
+  language: pt-BR
+  icon: 
+    logo: material/server-security 
+  palette:
+    scheme: slate
+    primary: black
 
 docs_dir: docs/
+
+markdown_extensions: 
+  - attr_list
 
 nav:
   - Início: index.md
@@ -14,4 +23,6 @@ nav:
   - Estrutura de Pastas: estrutura.md
 
 site_url: https://UnBSMA2025-1.github.io/2025.1_G1_SMA_MonitoramentoDeRedes/
+repo_url: https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes
+repo_name: UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes
 
