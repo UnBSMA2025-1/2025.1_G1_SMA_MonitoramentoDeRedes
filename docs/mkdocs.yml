@@ -9,8 +9,8 @@ nav:
   - Visão Geral: overview.md
   - Arquitetura dos Agentes: agentes.md
   - Roteamento HTTP: rotas.md
-  - Relatórios: relatorios.md
   - Execução: execucao.md
+  - Demonstração do projeto: demo.md
   - Estrutura de Pastas: estrutura.md
 
 site_url: https://UnBSMA2025-1.github.io/2025.1_G1_SMA_MonitoramentoDeRedes/
