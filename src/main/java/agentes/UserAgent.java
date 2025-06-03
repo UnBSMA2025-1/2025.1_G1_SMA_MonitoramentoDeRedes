@@ -10,6 +10,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
+
 public class UserAgent extends Agent {
     private static final String[] USERNAMES = {"alice", "bob", "charlie", "david", "eve"};
     private static final String[] PASSWORDS = {"password123", "qwerty", "123456", "letmein", "admin123"};
@@ -66,17 +67,16 @@ public class UserAgent extends Agent {
                         System.out.println("[USER] " + getLocalName() + " limitado (IP: " + fakeIp + ")");
                     }
                     else {
-                        try (BufferedReader br = new BufferedReader(
-                            new InputStreamReader(con.getInputStream()))) {
+                        try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
                             String response = br.readLine();
                             System.out.println("[USER] " + getLocalName() + " recebeu resposta: " + response);
                         }
                     }
-                    
                 } catch (Exception e) {
                     System.out.println("[USER] Erro em " + getLocalName() + ": " + e.getMessage());
                 }
             }
         });
     }
+
 }

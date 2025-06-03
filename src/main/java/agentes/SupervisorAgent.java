@@ -10,7 +10,7 @@ import jade.wrapper.ContainerController;
 import jade.wrapper.ControllerException;
 
 public class SupervisorAgent extends Agent {
-    private static final String MONITOR_NAME = "monitor";
+    private static final String MONITOR_NAME = "MonitorAgent";
     private static final String MITIGATOR_NAME = "mitigator";
     private boolean monitorAlive = true;
     private boolean mitigatorAlive = true;

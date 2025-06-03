@@ -26,48 +26,48 @@ public class CreateAttackAgent extends Agent {
 
     private static  int userName = 1;
     
-protected void setup() {
-    DFAgentDescription dfd = new DFAgentDescription();
-    dfd.setName(getAID());
-    ServiceDescription sd = new ServiceDescription();
-    sd.setType("Create-Attack");
-    sd.setName(getLocalName());
-    dfd.addServices(sd);
-    try { DFService.register(this, dfd); }
-    catch (FIPAException e) { e.printStackTrace(); }
+    protected void setup() {
+        DFAgentDescription dfd = new DFAgentDescription();
+        dfd.setName(getAID());
+        ServiceDescription sd = new ServiceDescription();
+        sd.setType("Create-Attack");
+        sd.setName(getLocalName());
+        dfd.addServices(sd);
+        try { DFService.register(this, dfd); }
+        catch (FIPAException e) { e.printStackTrace(); }
 
-    MessageTemplate mt = MessageTemplate.and(
-        MessageTemplate.MatchProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST),
-        MessageTemplate.MatchPerformative(ACLMessage.REQUEST)
-    );
+        MessageTemplate mt = MessageTemplate.and(
+            MessageTemplate.MatchProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST),
+            MessageTemplate.MatchPerformative(ACLMessage.REQUEST)
+        );
 
-    addBehaviour(new CyclicBehaviour(this) {
-        public void action() {
-            final ACLMessage msg = receive(mt);
-            if (msg != null) {
-                System.out.println(getLocalName() + ": criando agente pedido.");
-                addBehaviour(new WakerBehaviour(myAgent, 3000) {
-                    protected void onWake() {
-                        boolean sucesso = CreateAgent();
-                        ACLMessage reply = msg.createReply();
-                        reply.setPerformative(sucesso ? ACLMessage.INFORM : ACLMessage.FAILURE);
-                        reply.setContent(sucesso ? "Agente criado com sucesso" : "Falha ao criar agente");
-                        myAgent.send(reply);
-                    }
-                });
-            } else {
-                block();
+        addBehaviour(new CyclicBehaviour(this) {
+            public void action() {
+                final ACLMessage msg = receive(mt);
+                if (msg != null) {
+                    System.out.println(getLocalName() + ": criando agente pedido.");
+                    addBehaviour(new WakerBehaviour(myAgent, 3000) {
+                        protected void onWake() {
+                            boolean sucesso = CreateAgent();
+                            ACLMessage reply = msg.createReply();
+                            reply.setPerformative(sucesso ? ACLMessage.INFORM : ACLMessage.FAILURE);
+                            reply.setContent(sucesso ? "Agente criado com sucesso" : "Falha ao criar agente");
+                            myAgent.send(reply);
+                        }
+                    });
+                } else {
+                    block();
+                }
             }
-        }
-    });
-}
+        });
+    }
 
-protected void takeDown() {
-    try {
-        DFService.deregister(this);
-    } catch (FIPAException fe) { fe.printStackTrace(); }
-    System.out.println(getLocalName() + " encerrado.");
-}
+    protected void takeDown() {
+        try {
+            DFService.deregister(this);
+        } catch (FIPAException fe) { fe.printStackTrace(); }
+        System.out.println(getLocalName() + " encerrado.");
+    }
 
 
     public boolean CreateAgent() {

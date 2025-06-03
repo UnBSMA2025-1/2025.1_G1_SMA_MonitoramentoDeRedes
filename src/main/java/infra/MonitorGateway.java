@@ -1,5 +1,5 @@
 package infra;
 
 public interface MonitorGateway {
-    void receiveRequest(String ip);
+    boolean receiveRequest(String ip, String User_Password);
 }

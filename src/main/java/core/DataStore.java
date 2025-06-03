@@ -82,14 +82,14 @@ public class DataStore {
  public void cleanOldRequests() {
     long now = System.currentTimeMillis();
     recentRequests.removeIf(entry -> (now - entry.timestamp()) > 3600000); 
-}
+    }
     public boolean isKnownAttacker(String ip) {
     return attackAttempts.getOrDefault(ip, 0) > 0 || blockedIPs.contains(ip);
-}
+    }
 
-public boolean isPotentialDos(String ip) {
-    return requestsPerIP.getOrDefault(ip, 0) > 100; 
-}
+    public boolean isPotentialDos(String ip) {
+        return requestsPerIP.getOrDefault(ip, 0) > 100; 
+    }
 
     public record RequestEntry(String ip, long timestamp) {}
     public record AttackPattern(String type, String pattern) {}

@@ -57,25 +57,25 @@ public class MonitorAgent extends Agent implements MonitorGateway {
         });
     }
 
-private void monitorarRequisicoes() {
-    Map<String, Integer> snapshot = node.getRequestSnapshot();
-    snapshot.forEach((ip, count) -> {
-        if (count > 6) {
-            // Verificar se já foi notificado
-            if (!store.isIpBlocked(ip) && !notifiedIPs.contains(ip)) {
-                store.logAttackAttempt(ip, "DoS", "Taxa: " + count + " reqs/5s");
-                
-                if (store.getAttackAttempts(ip) >= 1) {
-                    System.out.println("[ALERTA CRÍTICO] DoS confirmado - IP: " + ip);
-                    notifyMitigator(ip);
-                    notifiedIPs.add(ip); // Registrar IP notificado
+    private void monitorarRequisicoes() {
+        Map<String, Integer> snapshot = node.getRequestSnapshot();
+        snapshot.forEach((ip, count) -> {
+            if (count > 5) {
+                // Verificar se já foi notificado
+                if (!store.isIpBlocked(ip) && !notifiedIPs.contains(ip)) {
+                    store.logAttackAttempt(ip, "DoS", "Taxa: " + count + " reqs/5s");
+                    
+                    if (store.getAttackAttempts(ip) >= 1) { // deixei 1 para nao permitir 'margem de erro'
+                        System.out.println("[Monitor] DoS confirmado - IP: " + ip);
+                        notifyMitigator(ip);
+                        notifiedIPs.add(ip); // Registrar IP notificado
+                    }
                 }
             }
-        }
-    });
-}
+        });
+    }
 
-    private void verificarAtaques() {
+    private void verificarAtaques() {   //somente caso queira adicionar verificação de bloqueios repetidos (mesmo ip, ex:bloqueado->desbloqueado->bloqueado)
         store.attackAttempts.forEach((ip, attempts) -> {
             if (attempts >= 2 && !store.blockedIPs.contains(ip)) {
                 System.out.println("[ALERTA] Ataque persistente - IP: " + ip);
@@ -117,14 +117,26 @@ private void monitorarRequisicoes() {
     }
 
     @Override
-    public void receiveRequest(String ip) {
+    public boolean receiveRequest(String ip, String User_Password) {
         node.registerRequest(ip);
         store.logRequest(ip);
         
         if (store.isKnownAttacker(ip)) {
             System.out.println("[DETECÇÃO] Ataque conhecido: " + ip);
             notifyMitigator(ip);
+            return false;
         }
+        if (User_Password != null && store.isSqlInjectionAttempt(User_Password)) {
+            store.logAttackAttempt(ip, User_Password, "SQLi");
+
+            if (store.getAttackAttempts(ip) >= 1) {
+                System.out.println("[MONITOR] Notificando mitigador {SQL Injection attack}: " + ip);
+                // RequestRouter.blockIp(ip);
+            }
+            notifyMitigator(ip);
+            return false;
+        }
+        return true;
     }
 
     protected void takeDown() {
