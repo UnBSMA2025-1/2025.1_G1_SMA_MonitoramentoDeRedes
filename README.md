@@ -25,6 +25,7 @@ Além disso, há uma resistência a falhas, pois caso um agente crítico pare de
 - 🖥️ `UserAgent`: Simula as requisições de um usuário normal.
 - 🧨 `AttackAgent`: Simula um ataque DOS na rede.
 - 🔧 `SupervisorAgent`: Supervisiona os agentes `MonitorAgent` e `MitigatorAgent`, de forma que garanta que sempre estarão funcionais.
+- 🪖 `CreateAttackAgent`: Cria novos agentes de ataque à medida que os antigos vão morrendo
 ## 📁 Estrutura
 ```bash
 ├── src/
