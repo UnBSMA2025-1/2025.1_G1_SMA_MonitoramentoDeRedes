@@ -103,7 +103,7 @@ Então, o Maven deve cuidar de todo o resto do processo de build e o sistema ser
 
 ## Uso 
 Para utilizar o sistema, basta rodá-lo e acessar o link para o dashboard. Nele, encontramos informações sobre IPs bloqueados, requisições feitas por IPs, e o log dos agentes. <br>
-Mais informações sobre como funciona o projeto e os agentes estão presentes [aqui]().
+**Mais informações sobre como funciona o projeto e os agentes estão presentes [aqui](https://unbsma2025-1.github.io/2025.1_G1_SMA_MonitoramentoDeRedes/).**
 
 
 ## Vídeo
@@ -126,12 +126,18 @@ Apresente, brevemente, como cada membro do grupo contribuiu para o projeto.
 Este projeto é escalável, pois permite que sejam adicionadas outras rotas para que sejam monitoradas. É necessário apenas poucas linhas de código para acoplar o `MonitorAgent` ao roteador.
 
 ### Lições Aprendidas
-Nesse projeto, aprendemos muito sobre o paradigma de Multiagentes, e suas aplicações em aplicativos que podem ser utilizados na vida real, fora de simulações. Também, pudemos aprender como gerenciar os recursos do sistema de forma a priorizar a performance, pois os agentes acabam tornando-se muito pesados para a máquina.
-- Paradigma de Sistemas Multiagentes
-- 
+- Paradigma de Sistemas Multiagentes e como utilizá-lo em aplicativos reais fora de simulações;
+- Como criar agentes Behaviour;
+- Como gerenciar os recursos do sistema de forma a priorizar a perfomance;
+- Trabalho em grupo para aprendizado de novas tecnologias.
 
 ### Percepções
-- 
+- Modularidade e escalabilidade com Multiagentes;
+- Importância do design correto das mensagens (ACLMessage);
+- Integração com HTTP utilizando o Spark;
+- Necessidade de atenção para concorrência e comunicação assíncrona;
+- Importância de documentação do projeto.
+
 ### Fragilidades do Sistema
 - Não reconhece outras formas de ataque fora o DoS e DDoS. 
 - Por limitações do JADE, o sistema não convém com os protocolos FIPA (FIPA Contract Net Interaction), pois ele não permite que sejam feitas muitas Calls for Proposal (CFP) simultaneamente para vários destinatários;
