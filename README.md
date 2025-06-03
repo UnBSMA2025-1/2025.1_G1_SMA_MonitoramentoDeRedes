@@ -27,44 +27,53 @@ Além disso, há uma resistência a falhas, pois caso um agente crítico pare de
 - 🔧 `SupervisorAgent`: Supervisiona os agentes `MonitorAgent` e `MitigatorAgent`, de forma que garanta que sempre estarão funcionais.
 - 🪖 `CreateAttackAgent`: Cria novos agentes de ataque à medida que os antigos vão morrendo
 ## 📁 Estrutura
-```bash
-├── src/
-│ └── main/
-│   └── java/
-│     └── agentes/
-│       ├── MonitorAgent.java
-│       ├── MitigatorAgent.java
-│       ├── RequesterAgent.java
-│       ├── SupervisorAgent.java
-│       └── RequestRouter.java
-│     └── core/
-│       ├── DataStore.java
-│       ├── Node.java
-│       └── RequestRouter.java
-│     └── infra/
-│       ├── MonitorGateway.java
-│       └── MonitoringAPI.java
-│     └── Main.java
-│   └── resources/
-│     └── public/
-│       └── site/
-│         └── index.html
-├── pom.xml
-├── README.md
-├── run.bat
-└── run.sh
+```sh
+ src
+  └── main
+      ├── java
+      │   ├── agentes
+      │   │   ├── AttackAgent.java
+      │   │   ├── CreateAttackAgent.java
+      │   │   ├── MitigatorAgent.java
+      │   │   ├── MonitorAgent.java
+      │   │   ├── SupervisorAgent.java
+      │   │   └── UserAgent.java
+      │   ├── core
+      │   │   ├── DataStore.java
+      │   │   ├── LogStore.java
+      │   │   ├── Node.java
+      │   │   ├── RequestRecord.java
+      │   │   └── RequestRouter.java
+      │   ├── infra
+      │   │   ├── MonitorGateway.java
+      │   │   └── MonitoringAPI.java
+      │   └── Main.java
+      └── resources
+          └── public
+              └── site
+                  ├── static
+                  │   ├── dashboard.css
+                  │   ├── dashboard.js
+                  │   ├── index.css
+                  │   └── index.js
+                  ├── dashboard.html
+                  └── index.html
 ```
 
 
 ## 🛠️ Pré-requisitos
 
-- Java 8+
+- Java 21+
 - Apache Maven
 
-## Screenshots (TODO)
+## Screenshots
+<img src="./screenshots/dashboard.png"/>
+<img src="./screenshots/dashboardlogs.png"/>
+<img src="./screenshots/terminal.png"/>
+<img src="./screenshots/terminal2.png"/>
 
 ## Instalação 
-**Linguagens**: Java 8+ e Shell Script (para scripts auxiliares)<br>
+**Linguagens**: Java 21+ e Shell Script (para scripts auxiliares)<br>
 **Tecnologias**: Maven e JADE v4.5.0<br>
 
 ## 🔧 Como rodar
@@ -114,12 +123,12 @@ Para maior esclarecimento sobre o projeto, clique no vídeo a seguir:
 ## Participações
 |Nome do Membro | Contribuição | Significância da Contribuição para o Projeto (Excelente/Boa/Regular/Ruim/Nula) | Comprobatórios (ex. links para commits)  |
 | --------------| ------------ | ------------------------------------------------------------------------------ | ---------------------------------------- |
-| Yan S.        | Desenvolvimento dos agentes, documentação e deploy | Excelente | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=yanrdgs-dev) 
-| Gabriel A.    | Alterar | Alterar | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=CODEbugging3000) |
-| Rodrigo A.    | Alterar | Alterar | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=Rodrigoatila09) | 
-| Matheus P.    | Alterar | Alterar | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=matheus-06) | 
-| Pedro I.      | Alterar | Alterar | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=pedroiaan) | 
-| Paulo V.      | Alterar | Alterar | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=g-paulovit) | 
+| Yan S.        | Desenvolvimento dos agentes, documentação e deploy. | Excelente | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=yanrdgs-dev) 
+| Gabriel A.    | Criação da API para o consumo no frontend da dashboard. | Excelente | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=CODEbugging3000) |
+| Rodrigo A.    | Criação de logs para interação com frontend. | Boa | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=Rodrigoatila09) | 
+| Matheus P.    | Criação de gerador de agentes de ataque, implementação OWASP. | Excelente  | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=matheus-06) | 
+| Pedro I.      | Criação da dashboard. | Boa | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=pedroiaan) | 
+| Paulo V.      | Criação do web socket e alterações no frontend. | Boa | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=g-paulovit) | 
 
 ## Outros 
 Este projeto é escalável, pois permite que sejam adicionadas outras rotas para que sejam monitoradas. É necessário apenas poucas linhas de código para acoplar o `MonitorAgent` ao roteador.
