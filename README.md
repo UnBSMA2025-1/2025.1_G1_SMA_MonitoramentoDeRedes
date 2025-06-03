@@ -154,5 +154,10 @@ Este projeto é escalável, pois permite que sejam adicionadas outras rotas para
 - Melhorar a robustez geral do sistema, para conseguir suportar diversos ataques simultâneos no mesmo sistema.
 
 ## Fontes
-Referencie, adequadamente, as referências utilizadas.
-Indique ainda sobre fontes de leitura complementares.
+
+- **PEREIRA, João Paulo Aragão.** *Método de mitigação contra ataques de negação de serviço distribuídos utilizando sistemas multiagentes*. Dissertação (Mestrado) – Universidade de São Paulo, 2021.  
+  [https://bdtd.ibict.br/vufind/Record/USP_b491d7e4241fe4d4820214d5653cdd7b](https://bdtd.ibict.br/vufind/Record/USP_b491d7e4241fe4d4820214d5653cdd7b)
+
+- **NUNES, Ingrid; SCHARDONG, Frederico; SCHAEFFER-FILHO, Alberto.** *BDI2DoS: An application using collaborating BDI agents to combat DDoS attacks*. Journal of Network and Computer Applications. 
+  [https://www-periodicos-capes-gov-br.ez54.periodicos.capes.gov.br/index.php/acervo/buscador.html?task=detalhes&source=all&id=W2584985623](https://www-periodicos-capes-gov-br.ez54.periodicos.capes.gov.br/index.php/acervo/buscador.html?task=detalhes&source=all&id=W2584985623)
+
