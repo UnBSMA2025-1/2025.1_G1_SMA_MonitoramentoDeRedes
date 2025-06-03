@@ -4,14 +4,14 @@
 **Frente de Pesquisa**: Monitoramento e Mitigação de Ataques DoS com Sistemas Multiagentes<br>
 
 ## Alunos
-| Matrícula  | Aluno                        |
-|------------|------------------------------|
-| 24/1025480 | Yan Rodrigues                |
-| 24/1025523 | Gabriel Alves de Araujo      |
-| 24/1025855 | Rodrigo Àtila                |
-| 24/1025336 | Matheus Pinheiro             |
-| 24/1025837 | Pedro Ian Guedes de Carvalho |
-| 24/1025971 | Paulo victor                 |
+| Matrícula  | Aluno                         |
+|------------|-------------------------------|
+| 24/1025480 | Yan Rodrigues                 |
+| 24/1025523 | Gabriel Alves de Araujo       |
+| 24/1025855 | Rodrigo Àtila                 |
+| 24/1025336 | Matheus Pinheiro              |
+| 24/1025837 | Pedro Ian Guedes de Carvalho  |
+| 24/1025971 | Paulo Vitor G. de Brito Matos |
 
 ## Sobre
 
@@ -117,10 +117,14 @@ OBS: TODOS DEVEM PARTICIPAR, CONFERINDO PONTOS DE VISTA.
 TEMPO: +/- 15min
 
 ## Participações
-Apresente, brevemente, como cada membro do grupo contribuiu para o projeto.
-|Nome do Membro | Contribuição | Significância da Contribuição para o Projeto (Excelente/Boa/Regular/Ruim/Nula) | Comprobatórios (ex. links para commits)
-| -- | -- | -- | -- |
-| Fulano  |  Programação dos Fatos da Base de Conhecimento Lógica | Boa | Commit tal (com link)
+|Nome do Membro | Contribuição | Significância da Contribuição para o Projeto (Excelente/Boa/Regular/Ruim/Nula) | Comprobatórios (ex. links para commits)  |
+| --------------| ------------ | ------------------------------------------------------------------------------ | ---------------------------------------- |
+| Yan S.        | Desenvolvimento dos agentes, documentação e deploy | Excelente | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=yanrdgs-dev) 
+| Gabriel A.    | Alterar | Alterar | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=CODEbugging3000) |
+| Rodrigo A.    | Alterar | Alterar | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=Rodrigoatila09) | 
+| Matheus P.    | Alterar | Alterar | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=matheus-06) | 
+| Pedro I.      | Alterar | Alterar | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=pedroiaan) | 
+| Paulo V.      | Alterar | Alterar | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=g-paulovit) | 
 
 ## Outros 
 Este projeto é escalável, pois permite que sejam adicionadas outras rotas para que sejam monitoradas. É necessário apenas poucas linhas de código para acoplar o `MonitorAgent` ao roteador.
