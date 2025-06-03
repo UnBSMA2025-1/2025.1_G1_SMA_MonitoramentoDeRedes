@@ -150,7 +150,6 @@ Este projeto é escalável, pois permite que sejam adicionadas outras rotas para
 - Melhorar a robustez geral do sistema, para conseguir suportar diversos ataques simultâneos no mesmo sistema.
 
 ## Fontes
-## 📚 Fontes
 
 - **PEREIRA, João Paulo Aragão.** *Método de mitigação contra ataques de negação de serviço distribuídos utilizando sistemas multiagentes*. Dissertação (Mestrado) – Universidade de São Paulo, 2021.  
   [https://bdtd.ibict.br/vufind/Record/USP_b491d7e4241fe4d4820214d5653cdd7b](https://bdtd.ibict.br/vufind/Record/USP_b491d7e4241fe4d4820214d5653cdd7b)
