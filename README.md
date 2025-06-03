@@ -4,14 +4,14 @@
 **Frente de Pesquisa**: Monitoramento e Mitigação de Ataques DoS com Sistemas Multiagentes<br>
 
 ## Alunos
-| Matrícula  | Aluno                        |
-|------------|------------------------------|
-| 24/1025480 | Yan Rodrigues                |
-| 24/1025523 | Gabriel Alves de Araujo      |
-| 24/1025855 | Rodrigo Àtila                |
-| 24/1025336 | Matheus Pinheiro             |
-| 24/1025837 | Pedro Ian Guedes de Carvalho |
-| 24/1025971 | Paulo victor                 |
+| Matrícula  | Aluno                         |
+|------------|-------------------------------|
+| 24/1025480 | Yan Rodrigues                 |
+| 24/1025523 | Gabriel Alves de Araujo       |
+| 24/1025855 | Rodrigo Àtila                 |
+| 24/1025336 | Matheus Pinheiro              |
+| 24/1025837 | Pedro Ian Guedes de Carvalho  |
+| 24/1025971 | Paulo Vitor G. de Brito Matos |
 
 ## Sobre
 
@@ -25,6 +25,7 @@ Além disso, há uma resistência a falhas, pois caso um agente crítico pare de
 - 🖥️ `UserAgent`: Simula as requisições de um usuário normal.
 - 🧨 `AttackAgent`: Simula um ataque DOS na rede.
 - 🔧 `SupervisorAgent`: Supervisiona os agentes `MonitorAgent` e `MitigatorAgent`, de forma que garanta que sempre estarão funcionais.
+- 🪖 `CreateAttackAgent`: Cria novos agentes de ataque à medida que os antigos vão morrendo
 ## 📁 Estrutura
 ```sh
  src
@@ -108,7 +109,7 @@ Então, o Maven deve cuidar de todo o resto do processo de build e o sistema ser
 
 ## Uso 
 Para utilizar o sistema, basta rodá-lo e acessar o link para o dashboard. Nele, encontramos informações sobre IPs bloqueados, requisições feitas por IPs, e o log dos agentes. <br>
-Mais informações sobre como funciona o projeto e os agentes estão presentes [aqui]().
+**Mais informações sobre como funciona o projeto e os agentes estão presentes [aqui](https://unbsma2025-1.github.io/2025.1_G1_SMA_MonitoramentoDeRedes/).**
 
 
 ## Vídeo
@@ -122,21 +123,31 @@ OBS: TODOS DEVEM PARTICIPAR, CONFERINDO PONTOS DE VISTA.
 TEMPO: +/- 15min
 
 ## Participações
-Apresente, brevemente, como cada membro do grupo contribuiu para o projeto.
-|Nome do Membro | Contribuição | Significância da Contribuição para o Projeto (Excelente/Boa/Regular/Ruim/Nula) | Comprobatórios (ex. links para commits)
-| -- | -- | -- | -- |
-| Fulano  |  Programação dos Fatos da Base de Conhecimento Lógica | Boa | Commit tal (com link)
+|Nome do Membro | Contribuição | Significância da Contribuição para o Projeto (Excelente/Boa/Regular/Ruim/Nula) | Comprobatórios (ex. links para commits)  |
+| --------------| ------------ | ------------------------------------------------------------------------------ | ---------------------------------------- |
+| Yan S.        | Desenvolvimento dos agentes, documentação e deploy | Excelente | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=yanrdgs-dev) 
+| Gabriel A.    | Alterar | Alterar | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=CODEbugging3000) |
+| Rodrigo A.    | Alterar | Alterar | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=Rodrigoatila09) | 
+| Matheus P.    | Alterar | Alterar | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=matheus-06) | 
+| Pedro I.      | Alterar | Alterar | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=pedroiaan) | 
+| Paulo V.      | Alterar | Alterar | [Commits comprobatórios](https://github.com/UnBSMA2025-1/2025.1_G1_SMA_MonitoramentoDeRedes/commits?author=g-paulovit) | 
 
 ## Outros 
 Este projeto é escalável, pois permite que sejam adicionadas outras rotas para que sejam monitoradas. É necessário apenas poucas linhas de código para acoplar o `MonitorAgent` ao roteador.
 
 ### Lições Aprendidas
-Nesse projeto, aprendemos muito sobre o paradigma de Multiagentes, e suas aplicações em aplicativos que podem ser utilizados na vida real, fora de simulações. Também, pudemos aprender como gerenciar os recursos do sistema de forma a priorizar a performance, pois os agentes acabam tornando-se muito pesados para a máquina.
-- Paradigma de Sistemas Multiagentes
-- 
+- Paradigma de Sistemas Multiagentes e como utilizá-lo em aplicativos reais fora de simulações;
+- Como criar agentes Behaviour;
+- Como gerenciar os recursos do sistema de forma a priorizar a perfomance;
+- Trabalho em grupo para aprendizado de novas tecnologias.
 
 ### Percepções
-- 
+- Modularidade e escalabilidade com Multiagentes;
+- Importância do design correto das mensagens (ACLMessage);
+- Integração com HTTP utilizando o Spark;
+- Necessidade de atenção para concorrência e comunicação assíncrona;
+- Importância de documentação do projeto.
+
 ### Fragilidades do Sistema
 - Não reconhece outras formas de ataque fora o DoS e DDoS. 
 - Por limitações do JADE, o sistema não convém com os protocolos FIPA (FIPA Contract Net Interaction), pois ele não permite que sejam feitas muitas Calls for Proposal (CFP) simultaneamente para vários destinatários;
@@ -149,5 +160,10 @@ Nesse projeto, aprendemos muito sobre o paradigma de Multiagentes, e suas aplica
 - Melhorar a robustez geral do sistema, para conseguir suportar diversos ataques simultâneos no mesmo sistema.
 
 ## Fontes
-Referencie, adequadamente, as referências utilizadas.
-Indique ainda sobre fontes de leitura complementares.
+
+- **PEREIRA, João Paulo Aragão.** *Método de mitigação contra ataques de negação de serviço distribuídos utilizando sistemas multiagentes*. Dissertação (Mestrado) – Universidade de São Paulo, 2021.  
+  [https://bdtd.ibict.br/vufind/Record/USP_b491d7e4241fe4d4820214d5653cdd7b](https://bdtd.ibict.br/vufind/Record/USP_b491d7e4241fe4d4820214d5653cdd7b)
+
+- **NUNES, Ingrid; SCHARDONG, Frederico; SCHAEFFER-FILHO, Alberto.** *BDI2DoS: An application using collaborating BDI agents to combat DDoS attacks*. Journal of Network and Computer Applications. 
+  [https://www-periodicos-capes-gov-br.ez54.periodicos.capes.gov.br/index.php/acervo/buscador.html?task=detalhes&source=all&id=W2584985623](https://www-periodicos-capes-gov-br.ez54.periodicos.capes.gov.br/index.php/acervo/buscador.html?task=detalhes&source=all&id=W2584985623)
+
