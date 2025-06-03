@@ -26,32 +26,37 @@ Além disso, há uma resistência a falhas, pois caso um agente crítico pare de
 - 🧨 `AttackAgent`: Simula um ataque DOS na rede.
 - 🔧 `SupervisorAgent`: Supervisiona os agentes `MonitorAgent` e `MitigatorAgent`, de forma que garanta que sempre estarão funcionais.
 ## 📁 Estrutura
-```bash
-├── src/
-│ └── main/
-│   └── java/
-│     └── agentes/
-│       ├── MonitorAgent.java
-│       ├── MitigatorAgent.java
-│       ├── RequesterAgent.java
-│       ├── SupervisorAgent.java
-│       └── RequestRouter.java
-│     └── core/
-│       ├── DataStore.java
-│       ├── Node.java
-│       └── RequestRouter.java
-│     └── infra/
-│       ├── MonitorGateway.java
-│       └── MonitoringAPI.java
-│     └── Main.java
-│   └── resources/
-│     └── public/
-│       └── site/
-│         └── index.html
-├── pom.xml
-├── README.md
-├── run.bat
-└── run.sh
+```sh
+ src
+  └── main
+      ├── java
+      │   ├── agentes
+      │   │   ├── AttackAgent.java
+      │   │   ├── CreateAttackAgent.java
+      │   │   ├── MitigatorAgent.java
+      │   │   ├── MonitorAgent.java
+      │   │   ├── SupervisorAgent.java
+      │   │   └── UserAgent.java
+      │   ├── core
+      │   │   ├── DataStore.java
+      │   │   ├── LogStore.java
+      │   │   ├── Node.java
+      │   │   ├── RequestRecord.java
+      │   │   └── RequestRouter.java
+      │   ├── infra
+      │   │   ├── MonitorGateway.java
+      │   │   └── MonitoringAPI.java
+      │   └── Main.java
+      └── resources
+          └── public
+              └── site
+                  ├── static
+                  │   ├── dashboard.css
+                  │   ├── dashboard.js
+                  │   ├── index.css
+                  │   └── index.js
+                  ├── dashboard.html
+                  └── index.html
 ```
 
 
