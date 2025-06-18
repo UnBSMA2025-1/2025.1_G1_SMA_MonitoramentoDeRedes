@@ -5,6 +5,8 @@ import jade.core.ProfileImpl;
 import jade.wrapper.ContainerController;
 import jade.core.Runtime;
 
+import core.DBInitializer;
+
 public class Main {
     public static void main(String[] args) throws Exception {
         // 1. Criar runtime e perfil JADE com GUI habilitada
@@ -19,7 +21,9 @@ public class Main {
         RequestRouter.setContainer(container);
 
         // 4. Iniciar servidor HTTP
-        RequestRouter.startServer();
+        RequestRouter.startServer();    
+        
+        DBInitializer.init();
 
         // 5. Criar agentes principais dentro do container
         container.createNewAgent("monitor", "agentes.MonitorAgent", null).start();
