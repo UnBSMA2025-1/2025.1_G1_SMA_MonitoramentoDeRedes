@@ -16,6 +16,10 @@ import java.util.LinkedList;
 import java.util.ArrayList;
 import core.RequestRecord;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import core.UserStore;
 
 public class MonitorAgent extends Agent implements MonitorGateway {
     private Node node;
@@ -84,7 +88,7 @@ public class MonitorAgent extends Agent implements MonitorGateway {
         });
     }
     @Override
-    public void receiveRequest(String ip) {
+    public void receiveRequest(String ip, String payload) {
         node.registerRequest(ip);
 
         synchronized (recentRequests) {
@@ -93,6 +97,24 @@ public class MonitorAgent extends Agent implements MonitorGateway {
                 recentRequests.remove(0);
             }
         }
+        try {
+        Gson gson = new Gson();
+        JsonObject obj = gson.fromJson(payload, JsonObject.class);
+        String username = obj.get("username").getAsString();
+        String password = obj.get("password").getAsString();
+
+        System.out.printf("[MONITOR] Requisição de %s: user=%s, pass=%s%n", ip, username, password);
+
+    if (!UserStore.isValid(username, password)) {
+        System.out.println("[MONITOR] Tentativa inválida de login de " + ip);
+        // você pode adicionar lógica de bloqueio extra aqui
+    }
+    else {
+        System.out.println("[MONITOR] Login completo  " + ip);
+    }
+        } catch (Exception e) {
+        System.err.println("[MONITOR] Erro ao processar JSON: " + e.getMessage());
+    }
     }
 
     @Override

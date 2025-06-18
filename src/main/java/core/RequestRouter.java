@@ -62,12 +62,13 @@ public class RequestRouter {
                 res.status(403);
                 return "Blocked";
             }
-
+            String body = req.body();   // Dados enviados pelo ataque/user (usuario + senha)
             if (monitor != null) {
                 final String ipCopy = ip;
+                final String bodyCopy = body;
                 executor.submit(() -> {
                     try {
-                        monitor.receiveRequest(ipCopy);
+                        monitor.receiveRequest(ipCopy, bodyCopy);
                     } catch (Exception e) {
                         System.err.println("[ROUTER] Erro ao enviar IP ao monitor: " + e.getMessage());
                     }
