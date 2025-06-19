@@ -4,15 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Node {
-    private final Map<String, Integer> requests = new HashMap<>();
+    private final Map<String,Integer> requests = new HashMap<>();
 
     public synchronized void registerRequest(String ip) {
         requests.put(ip, requests.getOrDefault(ip, 0) + 1);
-        // Empurra para o DataStore
         DataStore.getInstance().logRequest(ip);
     }
 
-    public synchronized Map<String, Integer> getRequestSnapshot() {
+    /** NOVO: devolve a contagem para um IP específico */
+    public synchronized int getRequestCount(String ip) {
+        return requests.getOrDefault(ip, 0);
+    }
+
+    public synchronized Map<String,Integer> getRequestSnapshot() {
         return new HashMap<>(requests);
     }
 

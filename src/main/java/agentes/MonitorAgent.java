@@ -25,6 +25,13 @@ public class MonitorAgent extends Agent implements MonitorGateway {
     private Node node;
     private final List<RequestRecord> recentRequests = new LinkedList<>();
 
+    // Códigos ANSI cor
+    public static final String RESET = "\u001B[0m";
+    public static final String VERMELHO = "\u001B[31m";
+    public static final String VERDE = "\u001B[32m";
+    public static final String AMARELO = "\u001B[33m";
+    public static final String AZUL = "\u001B[34m";
+
     protected void setup() {
         node = new Node();
         RequestRouter.registerMonitor(this);
@@ -47,8 +54,8 @@ public class MonitorAgent extends Agent implements MonitorGateway {
             protected void onTick() {
                 Map<String, Integer> snapshot = node.getRequestSnapshot();
                 for (Map.Entry<String, Integer> entry : snapshot.entrySet()) {
-                    if (entry.getValue() > 10) {
-                        String ip = entry.getKey();
+                    if (entry.getValue() > 5) {     // Reduzi o n° necessario para bloquear (o sistema parece estar mais lento por conta de um processo sincrono)
+                        String ip = entry.getKey(); // O processo sincrono foi necessario para o sistema não permitir o injection e depois bloquear
                         System.out.println("[MONITOR] IP suspeito: " + ip);
                         notifyMitigator(ip);
                     }
@@ -62,6 +69,8 @@ public class MonitorAgent extends Agent implements MonitorGateway {
             }
         });
     }
+
+//----------------------------------------------------------------------------------------------------------------------------------
 
     private void notifyMitigator(String ip) {
         addBehaviour(new OneShotBehaviour() {
@@ -87,7 +96,9 @@ public class MonitorAgent extends Agent implements MonitorGateway {
             }
         });
     }
-    @Override
+
+//----------------------------------------------------------------------------------------------------------------------------------
+
     public void receiveRequest(String ip, String payload) {
         node.registerRequest(ip);
 
@@ -104,18 +115,51 @@ public class MonitorAgent extends Agent implements MonitorGateway {
         String password = obj.get("password").getAsString();
 
         System.out.printf("[MONITOR] Requisição de %s: user=%s, pass=%s%n", ip, username, password);
+        if (possivelSQLInjection(ip, payload)) {
+            System.out.println("[MONITOR] SQL Injection detectado de: " + ip);
+            notifyMitigator(ip);
+            return;
+        }
 
-    if (!UserStore.isValid(username, password)) {
-        System.out.println("[MONITOR] Tentativa inválida de login de " + ip);
-        // você pode adicionar lógica de bloqueio extra aqui
+        if (!UserStore.isValid(username, password)) {
+            System.out.println("[MONITOR]" + VERMELHO + " Tentativa inválida de login de " + ip + RESET);   // Senha e/ou Usuario errado
+        }
+        else {
+            System.out.println("[MONITOR]" + VERDE + " Login completo  " + ip + RESET);
+        }
+        } 
+        catch (Exception e) {
+            System.err.println("[MONITOR] Erro ao processar JSON: " + e.getMessage());
+        }
     }
-    else {
-        System.out.println("[MONITOR] Login completo  " + ip);
+
+//----------------------------------------------------------------------------------------------------------------------------------
+
+    public boolean possivelSQLInjection(String ip, String body) {
+        if (body == null) return false;
+        String upper = body.toUpperCase();
+        // Algun tipos de injection
+        boolean found = upper.contains("\" OR")
+                    || upper.contains("DROP TABLE")
+                    || upper.contains("UNION SELECT")
+                    || upper.contains("'--")
+            // Comente aq se quiser mostrar o "roubo" dos dados
+                    // || upper.contains("'%")
+                    // ||upper.contains("' OR")
+                    // || upper.contains("1=1")
+                    // || upper.contains("--")
+            // Fim
+                    || upper.contains(";--");
+
+        if (found) {
+            System.out.printf("[MONITOR] SQL Injection detectado de: %s → %s%n", ip, body);
+            notifyMitigator(ip);  
+            return true;    // Ameaça return para o receiveRequest
+        }
+
+        return false;   // Seguro, return para o receiveRequest
     }
-        } catch (Exception e) {
-        System.err.println("[MONITOR] Erro ao processar JSON: " + e.getMessage());
-    }
-    }
+
 
     @Override
     public Map<String, Integer> getRequestCountsPerIp() {
